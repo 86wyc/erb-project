@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <style>
+        body { font-family: 'Microsoft JhengHei', sans-serif; max-width: 700px; margin: 40px auto; padding: 20px; background-color: #f5f7f8; }
+        .result-card { background: white; padding: 35px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .badge { background-color: #e67e22; color: white; padding: 4px 10px; border-radius: 20px; font-size: 14px; margin-right: 5px; display: inline-block; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #bdc3c7; padding-bottom: 12px; }
+        h2 { color: #d35400; margin-top: 25px; }
+        .meta-box { background-color: #fdf2e9; border-left: 5px solid #e67e22; padding: 15px; margin: 20px 0; border-radius: 4px; }
+        .recipe-box { background-color: #f8f9fa; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-top: 20px; }
+        ul { padding-left: 20px; line-height: 1.8; }
+        .food-img { width: 100%; max-height: 350px; object-fit: cover; border-radius: 8px; margin-top: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .notice { font-size: 12px; color: #7f8c8d; margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="result-card">
+        <h1>🌿 中醫智能健康評估系統</h1>
+        
+        <p><strong>您輸入的症狀：</strong>
+            <% symptoms.forEach(function(sym) { %>
+                <span class="badge"># <%= sym %></span>
+            <% }); %>
+        </p>
+
+        <div class="meta-box">
+            <h3>📊 初步評估證型：<%= data.type %></h3>
+            <p><%= data.assessment %></p>
+            <p><strong>💡 飲食調理建議：</strong><%= data.foodAdvise %></p>
+        </div>
+
+        <h2>🍵 推薦對症食療：<%= data.recipeName %></h2>
+        
+        <!-- 顯示免費 Unsplash 藥材/食物示意圖 -->
+        <img class="food-img" src="<%= data.imageUrl %>" alt="<%= data.recipeName %>">
+
+        <div class="recipe-box">
+            <h4>📋 所需食材 / 藥材：</h4>
+            <ul>
+                <% data.ingredients.forEach(function(ing) { %>
+                    <li><%= ing %></li>
+                <% }); %>
+            </ul>
+
+            <h4>🍳 Step by Step 製作做法：</h4>
+            <p style="line-height: 1.6; color: #34495e;"><%= data.instructions %></p>
+        </div>
+
+        <div class="notice">
+            ⚠️ <strong>醫療安全提示：</strong>本系統僅供作業演示與初步居家調理參考。中醫講究辨證論治，若症狀持續或出現發高燒（>38.5°C）、呼吸困難、嚴重咳嗽等危險轉壞信號，請立即尋求註冊中醫師或前往西醫急診診治。
+        </div>
+    </div>
+</body>
+</html>

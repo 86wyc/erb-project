@@ -1,0 +1,48 @@
+// 1. 透過官方 SDK 發送 API 請求到 Google 的 Gemini 伺服器
+const response = await ai.models.generateContent({
+  model: 'gemini-1.5-flash', // 指定使用 1.5 Flash 模型
+  contents: prompt,         // 把你的中醫診斷指令傳過去
+  config: { responseMimeType: "application/json" } // 💡 規定 API 回傳必須是乾淨的 JSON
+});
+
+// 2. 這群從 Google API 吐回來的資料，直接被我們轉成 JavaScript 物件
+const aiResult = JSON.parse(response.text);
+
+------------------------------------------------------------------------------------------------
+
+const prompt = `
+  你是一位專業的中醫師。請針對患者主訴的症狀【${symptomStr}】進行初步中醫辨證。
+  請嚴格以 JSON 格式回傳，格式必須完全符合以下結構（不要包含額外的說明文字）：
+  {
+    "type": "證型名稱",
+    "assessment": "評估說明文字",
+    "recipeName": "食譜名稱",
+    "ingredients": ["材料1", "材料2"],
+    "instructions": "詳細做法步驟",
+    "imageUrl": "根據您推薦的食譜，請從以下清單中選擇最接近的一組網址回傳，必須完全一模一樣：
+                 1. 薑茶類: https://unsplash.com
+                 2. 菊花茶類: https://unsplash.com
+                 3. 薄荷/綠茶類: https://unsplash.com
+                 4. 蜂蜜/檸檬類: https://unsplash.com"
+  }
+`;
+
+------------------------------------------------------------------------------------------------------- 
+重點：如何讓 Gemini 的 API 回傳「連相（圖片）」一起出？大語言模型（如 Gemini 1.5 Flash）的 API 本身是無法直接吐出一個「圖片二進位檔案」給你的，它只能吐出文字、網址或 JSON。為了在網頁內做到「圖文並茂」且一併記入 MongoDB，最聰明、最標準的 API 實作方式有以下兩種：方案 A：讓 Gemini API 幫我們挑選精準的配圖網址（最推薦、最簡單）我們在發送 API 請求時，要求 Gemini 的 JSON 裡面順便附帶一個精準的英文圖片關鍵字。因為以前舊的 Unsplash Source 網址（source.unsplash.com）已經被官方完全停止支援了，現在交功課最安全、免申請金鑰的做法是改用 Lorem Picsum 或 Pexels API，或者在 Prompt 內直接指定一組固定的高畫質藥材圖庫對照表。我們可以調整發送給 Gemini API 的 prompt，讓它的 JSON 包含合適的圖片網址：
+
+
+
+// 💾 直接整包存入 MongoDB，下次不用再扣 API 次數了！
+const newRemedyLog = new Remedy({
+  type: aiResult.type,
+  assessment: aiResult.assessment,
+  recipeName: aiResult.recipeName,
+  ingredients: aiResult.ingredients,
+  instructions: aiResult.instructions,
+  imageUrl: aiResult.imageUrl // 👈 來自 Gemini API 指定的圖片網址
+});
+await newRemedyLog.save();
+
+-----------------------------------------------------------------------------------------------------------
+
+📝 總結交功課時的資料流架構（報告必用）你在交功課簡報或回答老師問題時，可以直接秀出這個完美的 API 運作閉環：📥 前端（網頁）：使用者勾選了「咳、流涕」，發送 POST 請求到 Node.js 後端。🌐 後端（伺服器）：透過 Gemini API 將症狀包裝成指令發送給 Google 伺服器。🤖 Gemini 伺服器：經過 AI 分析後，透過 API 回傳包含「中醫評估、食譜文字、指定藥材圖片網址」的 JSON 資料。💾 資料庫（MongoDB）：後端接收到 API 的 JSON 後，立刻調用 Mongoose 語法，將整套圖文資料寫入本地的 MongoDB 進行持久化保存。📤 前端（渲染）：最後把這筆帶有圖片網址的資料丟給 EJS 範本，網頁上就會同時顯示出文字重點與對應的藥材圖片！這樣做，你的作業就同時具備了 「API 即時調用」、「AI 智能辨證」、「JSON 數據動態解析」、「MongoDB 數據落地」 四大高階亮點，拿高分非常穩當！
