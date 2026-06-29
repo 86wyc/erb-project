@@ -1,0 +1,196 @@
+{
+  "version": "30.2.6",
+  "data": "<mxfile host=\"app.diagrams.net\"><diagram id=\"pJf5Lv1cu4P1aX2wy7m1\" name=\"第 1 页\"><mxGraphModel dx=\"1288\" dy=\"779\" grid=\"1\" gridSize=\"10\" guides=\"1\" tooltips=\"1\" connect=\"1\" arrows=\"1\" fold=\"1\" page=\"1\" pageScale=\"1\" pageWidth=\"827\" pageHeight=\"1169\" math=\"0\" shadow=\"0\"><root><mxCell id=\"0\"/><mxCell id=\"1\" parent=\"0\"/><UserObject label=\"\" mermaidData=\"{&#10;  &quot;data&quot;: &quot;graph TD\\n    Start([START]) --&gt; Step1[/Step 1: User Selects Symptom Checkboxes/]\\n    Step1 --&gt; API1[Backend API Call: Calculate Match % against Diagnoses]\\n    API1 --&gt; Step2[/Step 2: Display Diagnoses Cards with Match %/]\\n    Step2 --&gt; Click[User Clicks/Selects One Specific Diagnosis]\\n    Click --&gt; API2[Backend API Call: Fetch Correlated Herbs &amp; Recipes]\\n    API2 --&gt; Step3[/Step 3: Display Personal Ingredients &amp; Recipes Cards/]\\n    Step3 --&gt; End([END])\\n\\n    style Start fill:#f9f,stroke:#333,stroke-width:2px\\n    style End fill:#f9f,stroke:#333,stroke-width:2px\\n    style Step1 fill:#bbf,stroke:#333,stroke-width:1px\\n    style Step2 fill:#bbf,stroke:#333,stroke-width:1px\\n    style Step3 fill:#bbf,stroke:#333,stroke-width:1px\\n&quot;,&#10;  &quot;config&quot;: null&#10;}\" id=\"igu3B23MOPGZ5U6y9fE4-1\"><mxCell connectable=\"0\" parent=\"1\" style=\"group;transparentBounds=1;editIcon=1;lockedGroup=0;groupPadding=20;\" vertex=\"1\"><mxGeometry as=\"geometry\"/></mxCell></UserObject><UserObject label=\"START\" mermaidId=\"n:Start\" mermaidBaseStyle=\"html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#f9f;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"START\" id=\"igu3B23MOPGZ5U6y9fE4-2\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#f9f;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"39\" width=\"67\" x=\"422\" y=\"40\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"Step 1: User Selects Symptom Checkboxes\" mermaidId=\"n:Step1\" mermaidBaseStyle=\"html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"Step 1: User Selects Symptom Checkboxes\" id=\"igu3B23MOPGZ5U6y9fE4-3\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"39\" width=\"356\" x=\"277\" y=\"129\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"Backend API Call: Calculate Match % against Diagnoses\" mermaidId=\"n:API1\" mermaidBaseStyle=\"html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"Backend API Call: Calculate Match % against Diagnoses\" id=\"igu3B23MOPGZ5U6y9fE4-4\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"54\" width=\"450\" x=\"230\" y=\"218\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"Step 2: Display Diagnoses Cards with Match %\" mermaidId=\"n:Step2\" mermaidBaseStyle=\"html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"Step 2: Display Diagnoses Cards with Match %\" id=\"igu3B23MOPGZ5U6y9fE4-5\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"39\" width=\"378\" x=\"266\" y=\"322\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"User Clicks/Selects One Specific Diagnosis\" mermaidId=\"n:Click\" mermaidBaseStyle=\"html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"User Clicks/Selects One Specific Diagnosis\" id=\"igu3B23MOPGZ5U6y9fE4-6\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"54\" width=\"362\" x=\"274\" y=\"411\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"Backend API Call: Fetch Correlated Herbs &amp; Recipes\" mermaidId=\"n:API2\" mermaidBaseStyle=\"html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"Backend API Call: Fetch Correlated Herbs &amp; Recipes\" id=\"igu3B23MOPGZ5U6y9fE4-7\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"54\" width=\"431\" x=\"240\" y=\"515\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"Step 3: Display Personal Ingredients &amp; Recipes Cards\" mermaidId=\"n:Step3\" mermaidBaseStyle=\"html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"Step 3: Display Personal Ingredients &amp; Recipes Cards\" id=\"igu3B23MOPGZ5U6y9fE4-8\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"39\" width=\"429\" x=\"241\" y=\"619\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"END\" mermaidId=\"n:End\" mermaidBaseStyle=\"html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#f9f;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" mermaidBaseValue=\"END\" id=\"igu3B23MOPGZ5U6y9fE4-9\"><mxCell parent=\"igu3B23MOPGZ5U6y9fE4-1\" style=\"html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#f9f;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;\" vertex=\"1\"><mxGeometry height=\"39\" width=\"60\" x=\"425\" y=\"708\" as=\"geometry\"/></mxCell></UserObject><UserObject label=\"\" mermaidId=\"e:Start-&gt;Step1#0\" mermaidBaseStyle=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.49;exitY=1;entryX=0.5;entryY=0;\" mermaidBaseValue=\"\" id=\"igu3B23MOPGZ5U6y9fE4-10\"><mxCell edge=\"1\" parent=\"igu3B23MOPGZ5U6y9fE4-1\" source=\"igu3B23MOPGZ5U6y9fE4-2\" style=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.49;exitY=1;entryX=0.5;entryY=0;rounded=0;\" target=\"igu3B23MOPGZ5U6y9fE4-3\"><mxGeometry relative=\"1\" as=\"geometry\"><Array as=\"points\"/></mxGeometry></mxCell></UserObject><UserObject label=\"\" mermaidId=\"e:Step1-&gt;API1#0\" mermaidBaseStyle=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;\" mermaidBaseValue=\"\" id=\"igu3B23MOPGZ5U6y9fE4-11\"><mxCell edge=\"1\" parent=\"igu3B23MOPGZ5U6y9fE4-1\" source=\"igu3B23MOPGZ5U6y9fE4-3\" style=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;\" target=\"igu3B23MOPGZ5U6y9fE4-4\"><mxGeometry relative=\"1\" as=\"geometry\"><Array as=\"points\"/></mxGeometry></mxCell></UserObject><UserObject label=\"\" mermaidId=\"e:API1-&gt;Step2#0\" mermaidBaseStyle=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;\" mermaidBaseValue=\"\" id=\"igu3B23MOPGZ5U6y9fE4-12\"><mxCell edge=\"1\" parent=\"igu3B23MOPGZ5U6y9fE4-1\" source=\"igu3B23MOPGZ5U6y9fE4-4\" style=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;\" target=\"igu3B23MOPGZ5U6y9fE4-5\"><mxGeometry relative=\"1\" as=\"geometry\"><Array as=\"points\"/></mxGeometry></mxCell></UserObject><UserObject label=\"\" mermaidId=\"e:Step2-&gt;Click#0\" mermaidBaseStyle=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;\" mermaidBaseValue=\"\" id=\"igu3B23MOPGZ5U6y9fE4-13\"><mxCell edge=\"1\" parent=\"igu3B23MOPGZ5U6y9fE4-1\" source=\"igu3B23MOPGZ5U6y9fE4-5\" style=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;\" target=\"igu3B23MOPGZ5U6y9fE4-6\"><mxGeometry relative=\"1\" as=\"geometry\"><Array as=\"points\"/></mxGeometry></mxCell></UserObject><UserObject label=\"\" mermaidId=\"e:Click-&gt;API2#0\" mermaidBaseStyle=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;\" mermaidBaseValue=\"\" id=\"igu3B23MOPGZ5U6y9fE4-14\"><mxCell edge=\"1\" parent=\"igu3B23MOPGZ5U6y9fE4-1\" source=\"igu3B23MOPGZ5U6y9fE4-6\" style=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;\" target=\"igu3B23MOPGZ5U6y9fE4-7\"><mxGeometry relative=\"1\" as=\"geometry\"><Array as=\"points\"/></mxGeometry></mxCell></UserObject><UserObject label=\"\" mermaidId=\"e:API2-&gt;Step3#0\" mermaidBaseStyle=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;\" mermaidBaseValue=\"\" id=\"igu3B23MOPGZ5U6y9fE4-15\"><mxCell edge=\"1\" parent=\"igu3B23MOPGZ5U6y9fE4-1\" source=\"igu3B23MOPGZ5U6y9fE4-7\" style=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;\" target=\"igu3B23MOPGZ5U6y9fE4-8\"><mxGeometry relative=\"1\" as=\"geometry\"><Array as=\"points\"/></mxGeometry></mxCell></UserObject><UserObject label=\"\" mermaidId=\"e:Step3-&gt;End#0\" mermaidBaseStyle=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;\" mermaidBaseValue=\"\" id=\"igu3B23MOPGZ5U6y9fE4-16\"><mxCell edge=\"1\" parent=\"igu3B23MOPGZ5U6y9fE4-1\" source=\"igu3B23MOPGZ5U6y9fE4-8\" style=\"curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;\" target=\"igu3B23MOPGZ5U6y9fE4-9\"><mxGeometry relative=\"1\" as=\"geometry\"><Array as=\"points\"/></mxGeometry></mxCell></UserObject></root></mxGraphModel></diagram></mxfile>",
+  "pages": [
+    {
+      "id": "pJf5Lv1cu4P1aX2wy7m1",
+      "name": "第 1 页",
+      "cells": [
+        {
+          "id": "1",
+          "type": "layer"
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-1",
+          "type": "node",
+          "parent": "1",
+          "metadata": {
+            "mermaidData": "{\n  \"data\": \"graph TD\\n    Start([START]) --> Step1[/Step 1: User Selects Symptom Checkboxes/]\\n    Step1 --> API1[Backend API Call: Calculate Match % against Diagnoses]\\n    API1 --> Step2[/Step 2: Display Diagnoses Cards with Match %/]\\n    Step2 --> Click[User Clicks/Selects One Specific Diagnosis]\\n    Click --> API2[Backend API Call: Fetch Correlated Herbs & Recipes]\\n    API2 --> Step3[/Step 3: Display Personal Ingredients & Recipes Cards/]\\n    Step3 --> End([END])\\n\\n    style Start fill:#f9f,stroke:#333,stroke-width:2px\\n    style End fill:#f9f,stroke:#333,stroke-width:2px\\n    style Step1 fill:#bbf,stroke:#333,stroke-width:1px\\n    style Step2 fill:#bbf,stroke:#333,stroke-width:1px\\n    style Step3 fill:#bbf,stroke:#333,stroke-width:1px\\n\",\n  \"config\": null\n}"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-2",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "START",
+          "metadata": {
+            "mermaidId": "n:Start",
+            "mermaidBaseStyle": "html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#f9f;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "START"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-3",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "Step 1: User Selects Symptom Checkboxes",
+          "metadata": {
+            "mermaidId": "n:Step1",
+            "mermaidBaseStyle": "html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "Step 1: User Selects Symptom Checkboxes"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-4",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "Backend API Call: Calculate Match % against Diagnoses",
+          "metadata": {
+            "mermaidId": "n:API1",
+            "mermaidBaseStyle": "html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "Backend API Call: Calculate Match % against Diagnoses"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-5",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "Step 2: Display Diagnoses Cards with Match %",
+          "metadata": {
+            "mermaidId": "n:Step2",
+            "mermaidBaseStyle": "html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "Step 2: Display Diagnoses Cards with Match %"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-6",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "User Clicks/Selects One Specific Diagnosis",
+          "metadata": {
+            "mermaidId": "n:Click",
+            "mermaidBaseStyle": "html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "User Clicks/Selects One Specific Diagnosis"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-7",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "Backend API Call: Fetch Correlated Herbs & Recipes",
+          "metadata": {
+            "mermaidId": "n:API2",
+            "mermaidBaseStyle": "html=1;whiteSpace=wrap;strokeWidth=1;fillColor=light-dark(#ECECFF,#1f2020);strokeColor=light-dark(#9370DB,#cccccc);fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "Backend API Call: Fetch Correlated Herbs & Recipes"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-8",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "Step 3: Display Personal Ingredients & Recipes Cards",
+          "metadata": {
+            "mermaidId": "n:Step3",
+            "mermaidBaseStyle": "html=1;shape=parallelogram;perimeter=parallelogramPerimeter;fixedSize=1;size=19.5;strokeWidth=1;whiteSpace=wrap;fillColor=#bbf;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "Step 3: Display Personal Ingredients & Recipes Cards"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-9",
+          "type": "node",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "label": "END",
+          "metadata": {
+            "mermaidId": "n:End",
+            "mermaidBaseStyle": "html=1;rounded=1;whiteSpace=wrap;arcSize=50;strokeWidth=2;fillColor=#f9f;strokeColor=#333;fontColor=light-dark(#333333,#cccccc);fontFamily=Trebuchet MS,Verdana,Arial,sans-serif;fontSize=16;",
+            "mermaidBaseValue": "END"
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-10",
+          "type": "edge",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "source": "igu3B23MOPGZ5U6y9fE4-2",
+          "target": "igu3B23MOPGZ5U6y9fE4-3",
+          "metadata": {
+            "mermaidId": "e:Start->Step1#0",
+            "mermaidBaseStyle": "curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.49;exitY=1;entryX=0.5;entryY=0;",
+            "mermaidBaseValue": ""
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-11",
+          "type": "edge",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "source": "igu3B23MOPGZ5U6y9fE4-3",
+          "target": "igu3B23MOPGZ5U6y9fE4-4",
+          "metadata": {
+            "mermaidId": "e:Step1->API1#0",
+            "mermaidBaseStyle": "curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;",
+            "mermaidBaseValue": ""
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-12",
+          "type": "edge",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "source": "igu3B23MOPGZ5U6y9fE4-4",
+          "target": "igu3B23MOPGZ5U6y9fE4-5",
+          "metadata": {
+            "mermaidId": "e:API1->Step2#0",
+            "mermaidBaseStyle": "curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;",
+            "mermaidBaseValue": ""
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-13",
+          "type": "edge",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "source": "igu3B23MOPGZ5U6y9fE4-5",
+          "target": "igu3B23MOPGZ5U6y9fE4-6",
+          "metadata": {
+            "mermaidId": "e:Step2->Click#0",
+            "mermaidBaseStyle": "curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;",
+            "mermaidBaseValue": ""
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-14",
+          "type": "edge",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "source": "igu3B23MOPGZ5U6y9fE4-6",
+          "target": "igu3B23MOPGZ5U6y9fE4-7",
+          "metadata": {
+            "mermaidId": "e:Click->API2#0",
+            "mermaidBaseStyle": "curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;",
+            "mermaidBaseValue": ""
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-15",
+          "type": "edge",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "source": "igu3B23MOPGZ5U6y9fE4-7",
+          "target": "igu3B23MOPGZ5U6y9fE4-8",
+          "metadata": {
+            "mermaidId": "e:API2->Step3#0",
+            "mermaidBaseStyle": "curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;",
+            "mermaidBaseValue": ""
+          }
+        },
+        {
+          "id": "igu3B23MOPGZ5U6y9fE4-16",
+          "type": "edge",
+          "parent": "igu3B23MOPGZ5U6y9fE4-1",
+          "source": "igu3B23MOPGZ5U6y9fE4-8",
+          "target": "igu3B23MOPGZ5U6y9fE4-9",
+          "metadata": {
+            "mermaidId": "e:Step3->End#0",
+            "mermaidBaseStyle": "curved=1;startArrow=none;endArrow=block;endSize=7;strokeColor=light-dark(#333333,#cccccc);exitX=0.5;exitY=1;entryX=0.5;entryY=0;",
+            "mermaidBaseValue": ""
+          }
+        }
+      ]
+    }
+  ]
+}
