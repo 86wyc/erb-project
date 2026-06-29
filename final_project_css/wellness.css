@@ -1,0 +1,324 @@
+/* 杏林院日常養生頁專屬 CSS 樣式表 (外部 CSS 專屬：Base64 終極相容花紋版) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', 'Noto Serif HK', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    /*將 SVG 花紋轉化為標準的純英文 Base64 編碼，100% 繞過瀏覽器的字元審查，保證在獨立 CSS 檔內絕對亮起！ */
+    background-image:
+        url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAnIGhlaWdodD0nMTIwJyB2aWV3Qm94PScwIDAgMTIwIDEyMCc+PHBhdGggZD0nTTMwIDIwYzUgMCA5IDQgOSA5cy00IDktOSA5LTktNC05LTkgNC05IDktOXptMCA0Yy0yLjggMC01IDIuMi01IDVzMi4yIDUgNSA1IDUtMi4yIDUtNS0yLjItNS01LTV6bTQwIDQwYzYgMCAxMSA1IDExIDExcy01IDExLTExIDExLTExLTUtMTEtMTEgNS0xMSAxMS0xMXptMCA0Yy0zLjkgMC03IDMuMS03IDdzMy4xIDcgNyA3IDctMy4xIDctNy0zLjEtNy03LTd6JyBmaWxsPSdyZ2IoMjcsOTQsMzIpJyBmaWxsLW9wYWNpdHk9JzAuMDUnLz48L3N2Zz4="),
+        url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAnIGhlaWdodD0nMTIwJyB2aWV3Qm94PScwIDAgMTIwIDEyMCc+PHBhdGggZD0nTTMwIDIwYzUgMCA5IDQgOSA5cy00IDktOSA5LTktNC05LTkgNC05IDktOXptMCA0Yy0yLjggMC01IDIuMi01IDVzMi4yIDUgNSA1IDUtMi4yIDUtNS0yLjItNS01LTV6bTQwIDQwYzYgMCAxMSA1IDExIDExcy01IDExLTExIDExLTExLTUtMTEtMTEgNS0xMSAxMS0xMXptMCA0Yy0zLjkgMC03IDMuMS03IDdzMy4xIDcgNyA3IDctMy4xIDctNy0zLjEtNy03LTd6JyBmaWxsPSdyZ2IoMjcsOTQsMzIpJyBmaWxsLW9wYWNpdHk9JzAuMDUnLz48L3N2Zz4="),
+        linear-gradient(135deg, #f4fbf4 0%, #eef7ee 100%);
+
+    background-position: left top, right top, center !important;
+    background-repeat: repeat-y, repeat-y, no-repeat !important;
+    background-size: 150px auto, 150px auto, cover !important;
+    background-color: #eef7ee !important;
+    background-attachment: fixed !important;
+    /* 滾動時花紋固定，極具立體高級感 */
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding-bottom: 60px;
+}
+
+/* 統一草本綠 Header */
+.header {
+    width: 100%;
+    background-color: #e8f5e9;
+    padding: 5px 0 25px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 30px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.header .logo-img {
+    max-height: 78px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-top: 2px;
+}
+
+/* 頂部全統一導覽連結組 */
+.nav-links {
+    position: absolute;
+    right: 20px;
+    bottom: 12px;
+    display: flex;
+    gap: 12px;
+}
+
+.nav-btn {
+    background-color: #ffffff;
+    color: #1b5e20;
+    border: 1px solid #1b5e20;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.nav-btn:hover {
+    background: #1b5e20;
+    color: #ffffff;
+}
+
+.nav-btn.logout {
+    border-color: #c62828;
+    color: #c62828;
+    background-color: #ffffff;
+}
+
+.nav-btn.logout:hover {
+    background: #c62828;
+    color: #ffffff;
+}
+
+/* 主內容包裹區 - 600px 黃金寬度 */
+.main-content {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 20px;
+}
+
+/* 養生總卡片 */
+.wellness-card {
+    width: 100%;
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(46, 125, 50, 0.06);
+    border-top: 8px solid #2e7d32;
+    position: relative;
+    z-index: 5;
+}
+
+.wellness-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #1b5e20;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.wellness-meta {
+    font-size: 14px;
+    color: #7f8c8d;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+/* 古風都市病下拉選單組合 */
+.selector-box {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.selector-box label {
+    display: block;
+    font-weight: bold;
+    color: #4e342e;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.modern-select {
+    width: 100%;
+    padding: 13px 15px;
+    border: 2px solid #a5d6a7;
+    border-radius: 6px;
+    font-size: 16px;
+    color: #1b5e20;
+    font-weight: bold;
+    background-color: #fffde7;
+    cursor: pointer;
+    outline: none;
+    box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+}
+
+.modern-select:focus {
+    border-color: #1b5e20;
+    background-color: #ffffff;
+    box-shadow: 0 0 12px rgba(46, 125, 50, 0.2);
+}
+
+/* 動態結果展示面板 */
+.dynamic-result-panel {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 當前都市病大標籤 */
+.disease-badge-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1b5e20;
+    border-bottom: 2px dashed #c8e6c9;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+/* 柔和暖綠調理區塊 */
+.info-section {
+    background-color: #f1f8e9;
+    border-left: 5px solid #2e7d32;
+    padding: 15px 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.info-section h3 {
+    font-size: 15px;
+    color: #1b5e20;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.info-section p {
+    font-size: 14px;
+    color: #2e7d32;
+    line-height: 1.6;
+}
+
+/* 雙欄調理網格 */
+.wellness-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.grid-box {
+    background: #fffdfb;
+    border: 1px solid #c8e6c9;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(46, 125, 50, 0.03);
+}
+
+.grid-box h4 {
+    font-size: 14px;
+    color: #2e7d32;
+    margin-bottom: 8px;
+    font-weight: bold;
+    border-bottom: 1px solid #c8e6c9;
+    padding-bottom: 4px;
+}
+
+.grid-box p {
+    font-size: 13px;
+    color: #1b5e20;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+/* 日常養生頁漢堡包響應式變身規則 */
+.hamburger-toggle {
+    display: none;
+    position: absolute;
+    right: 20px;
+    bottom: 25px;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 110;
+}
+
+.hamburger-toggle .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #1b5e20;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .hamburger-toggle {
+        display: flex;
+    }
+
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        right: 20px;
+        width: 200px;
+        background-color: rgba(255, 255, 255, 0.98);
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border: 1px solid #c8e6c9;
+        gap: 10px;
+    }
+
+    .nav-links.open {
+        display: flex;
+        animation: navSlideDown 0.25s ease-out;
+    }
+
+    .nav-btn {
+        width: 100%;
+        padding: 10px 0;
+    }
+
+    .hamburger-toggle.active .bar:nth-child(1) {
+        transform: translateY(7.5px) rotate(45deg);
+    }
+
+    .hamburger-toggle.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-toggle.active .bar:nth-child(3) {
+        transform: translateY(-7.5px) rotate(-45deg);
+    }
+}
+
+@keyframes navSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

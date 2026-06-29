@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日常養生 - 杏林院</title>
+
+    <!-- 門禁安全守衛：未叩門或重新打開網頁，無條件強制彈回大門迎賓頁 當所有網頁整好後 開啟這個 -->
+
+
+    <!-- <script>
+        if (!sessionStorage.getItem('hasWelcomed')) {
+            window.location.replace('welcome_page.html'); // 💡 使用 replace 可以鎖死歷史紀錄，防止按上一頁穿幫
+        }
+    </script> -->
+
+    <!-- 外部樣式引入 -->
+    <link rel="stylesheet" href="final_project_css/wellness.css">
+
+
+
+</head>
+
+<body>
+
+    <!-- 保留統一風格導覽列的 Header -->
+    <div class="header">
+        <img class="logo-img" src="erb_finalproject_photo/logo.png" alt="◆ 杏林院 ◆"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1 style="display:none;">◆ 杏林院 ◆</h1>
+
+        <!-- 請精確在中間補上這顆漢堡包按鈕本體！ -->
+        <button class="hamburger-toggle" id="hamburgerMenuBtn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <!-- 帶有漢堡包 id 的完全體 -->
+        <div class="nav-links" id="navLinksContainer">
+
+            <a href="main_menu.html" class="nav-btn" id="navHome">首頁</a>
+            <a href="history.html" class="nav-btn" id="navHistory">歷史看診紀錄</a>
+            <a href="#" class="nav-btn logout" id="navLogout">發出</a>
+        </div>
+    </div>
+
+    <!-- 主內容區 -->
+    <div class="main-content">
+        <div class="wellness-card">
+            <div class="wellness-title">🍊 杏林院 · 十大都市病調理</div>
+            <div class="wellness-meta">順應中醫「上工治未病」智慧，專為現代都市忙碌人訂製的日常調理指南。</div>
+
+            <!-- 都市病切換選單 -->
+            <div class="selector-box">
+                <label for="diseaseSelect">請選擇您目前遇到的都市不適：</label>
+                <select id="diseaseSelect" class="modern-select">
+                    <option value="sleep">1. 熬夜無夠睡（陰虛火旺）</option>
+                    <option value="qi">2. 氣血不足（面色蒼白、容易累）</option>
+                    <option value="eyecare">3. 長期看螢幕（眼乾眼疲勞）</option>
+                    <option value="neck">4. 久坐低頭（肩頸酸痛麻木）</option>
+                    <option value="spleen">5. 脾虛濕重（身體沉重、水腫）</option>
+                    <option value="stomach">6. 飲食不節（三餐不定、胃脹胃痛）</option>
+                    <option value="stress">7. 壓力過大（肝氣鬱結、失眠多夢）</option>
+                    <option value="ac">8. 長期待冷氣房（風寒襲表、手腳冰冷）</option>
+                    <option value="constipation">9. 久坐少動（腸道蠕動慢、便秘）</option>
+                    <option value="fatigue">10. 慢性疲勞（經常哈欠、虛胖）</option>
+                </select>
+            </div>
+
+            <!-- 動態渲染結果面板 -->
+            <div class="dynamic-result-panel" id="resultPanel">
+                <!-- 數據將由 JS 全自動動態填入 -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 前端功能導航與動態數據大腦 -->
+    <script {nonce}>
+        // 10大都市病正統中醫日常調理資料庫 (純前端 JSON 數據驅動)
+        const wellnessDatabase = {
+            sleep: {
+                title: "🔴 症狀一：熬夜不夠睡（陰虛火旺）",
+                desc: "長期熬夜會耗傷心腎陰液，導致虛火內生，出現口乾舌燥、心煩失眠、牙齦腫痛等虛火表現。",
+                soup: "花旗參石斛麥冬湯\n配方：花旗參 10g、石斛 15g、麥冬 12g、瘦肉適量。\n功效：益氣生津，滋陰清熱。",
+                habit: "1. 晚上11點前盡量入睡，此時膽經當令，利於養肝膽。\n2. 午休靜坐 15 分鐘，以養心氣。\n3. 睡前溫水泡腳，引火下行。"
+            },
+            qi: {
+                title: "🔴 症狀二：氣血不足（容易攰、面色黃）",
+                desc: "思慮過度或久坐傷肉，導致脾胃運化無力，氣血生化不足，表現為精神疲倦、頭暈、面色蒼白。",
+                soup: "當歸黃耆黨參雞湯\n配方：當歸 6g、黃耆 20g、黨參 15g、紅棗 5 枚、雞肉適量。\n功效：補氣養血，健脾益調。",
+                habit: "1. 忌過度勞累與大汗淋漓，汗為心之液，大汗傷氣血。\n2. 每日梳頭 100 下，促進頭部氣血運行。\n3. 多吃紅豆、桂圓等紅色食物。"
+            },
+            eyecare: {
+                title: "🔴 症狀三：長期看螢幕（眼乾、眼疲勞）",
+                desc: "久視傷血，長期注視電子螢幕會過度消耗肝血，導致肝血不能濡養雙目，引發乾澀與視力模糊。",
+                soup: "杞子菊花決明子茶\n配方：枸杞子 12g、杭白菊 9g、決明子 10g。\n功效：清肝明目，滋補肝腎。",
+                habit: "1. 遵循「20-20-20」原則：看螢幕20分鐘，看20英尺外物體20秒。\n2. 常用溫熱毛巾熱敷眼部。\n3. 雙眼用力閉上再睜開，反覆10次。"
+            },
+            neck: {
+                title: "🔴 症狀四：久坐低頭（肩頸酸痛麻木）",
+                desc: "長期維持同一姿勢會導致肩頸局部氣血運行不暢，經絡受阻，形成中醫所說的「經筋痹阻」。",
+                soup: "葛根桑枝木瓜瘦肉湯\n配方：野葛根 30g、桑枝 15g、宣木瓜 12g、瘦肉適量。\n功效：解肌舒筋，通絡止痛。",
+                habit: "1. 每隔45分鐘起身做「雙手托天」伸展動作。\n2. 保持電腦螢幕與視線平齊，減少低頭角度。\n3. 睡前選用高度合適、能承托頸椎的枕頭。"
+            },
+            spleen: {
+                title: "🔴 症狀五：脾虛濕重（身體沉重、四肢水腫）",
+                desc: "喜食生冷或久坐缺乏運動，導致脾臟運化水濕功能失常，濕邪困阻四肢，出現身體沉重、大便黏馬桶。",
+                soup: "清熱祛濕五指毛桃薏米湯\n配方：五指毛桃 30g、熟薏米 20g、赤小豆 15g、茯苓 15g。\n功效：健脾祛濕，舒筋活絡。",
+                habit: "1. 嚴格戒除冰凍飲品、生冷沙律與甜食。\n2. 每日快走 30 分鐘，微汗最利於身體排出濕氣。\n3. 洗澡後務必將頭髮徹底吹乾再入睡。"
+            },
+            stomach: {
+                title: "🔴 症狀六：飲食不節（三餐不定、胃脹胃痛）",
+                desc: "工作忙碌導致飲食飢飽不均，損傷脾胃正氣，胃失和降，氣機阻滯而引發胃脹、胃痛與消化不良。",
+                soup: "砂仁陳皮猴頭菇豬肚湯\n配方：春砂仁 5g（後下）、新會陳皮 1瓣、猴頭菇 2個、豬肚適量。\n功效：行氣和胃，健脾消食。",
+                habit: "1. 每餐堅持定時定量，並細嚼慢嚥（每口嚼20次）。\n2. 飯後不宜立刻坐下或進行劇烈運動，宜散步15分鐘。\n3. 胃寒者注意腹部保暖，不穿露臍裝。"
+            },
+            stress: {
+                title: "🔴 症狀七：壓力過大（肝氣鬱結、失眠多夢）",
+                desc: "職場壓力與情緒壓抑導致肝失疏泄，氣機鬱滯，久而化火干擾心神，引起偏頭痛、胸脅脹悶及多夢易醒。",
+                soup: "玫瑰合歡皮合掌瓜湯\n配方：法蘭西玫瑰花 6g（沖泡）、合歡皮 12g、百合 15g、合掌瓜 1個。\n功效：疏肝解鬱，清心安神。",
+                habit: "1. 練習腹式呼吸：深吸氣4秒，屏氣4秒，呼氣8秒。\n2. 每日聽 15 分鐘古典或輕柔音樂發呆。\n3. 多與朋友傾訴，遇到不順心適度宣洩情緒。"
+            },
+            ac: {
+                title: "🔴 症狀八：長期待冷氣房（風寒襲表、手腳冰冷）",
+                desc: "辦公室冷氣過強，寒邪侵襲肌表，毛孔閉塞，阻礙體表陽氣宣發，表現為經絡氣血凝滯、畏寒、關節酸痛。",
+                soup: "生薑紅棗紫蘇茶\n配方：生薑 3片、紅棗 5枚（去核）、紫蘇葉 6g。\n功效：解表散寒，溫中通陽。",
+                habit: "1. 在辦公室準備一件薄外套或披肩，重點保護肩頸與膝蓋。\n2. 避免冷氣出風口直吹頭部與後背。\n3. 每早喝一杯溫薑水，補充體內陽氣。"
+            },
+            constipation: {
+                title: "🔴 症狀九：久坐少動（腸道蠕動慢、便秘）",
+                desc: "久坐導致氣機鬱滯，大腸傳導無力，加之飲水不足或腸胃積熱，腸道津枯，大便乾結難出。",
+                soup: "決明子黑芝麻潤腸茶\n配方：炒決明子 12g、熟黑芝麻 10g、火麻仁 10g。\n功效：潤腸通便，清肝瀉火。",
+                habit: "1. 養成每日清晨定時排便的習慣，排便時不看手機。\n2. 順時針方向圍繞臍周摩腹 50 次，促進腸道蠕動。\n3. 每日攝取充足的綠色蔬菜與溫開水。"
+            },
+            fatigue: {
+                title: "🔴 症狀十：慢性疲勞（虛胖、經常哈欠）",
+                desc: "長期處於高壓亞健康狀態，氣虛不能運化水谷精微，導致濕濁內停，身體表現為越累越胖、虛浮無力。",
+                soup: "黃耆黨參茯苓山藥湯\n配方：炙黃耆 15g、紋黨參 12g、雲茯苓 15g、乾懷山藥 20g。\n功效：補中益氣，健脾滲濕。",
+                habit: "1. 拒絕盲目節食減肥，氣虛更需要規律溫熱飲食。\n2. 保持規律的有氧運動，如八段錦、太極拳。\n3. 泡澡或泡腳，促進全身微循環與代謝。"
+            }
+        };
+
+        // 2. 動態抽換卡片核心邏輯
+        const diseaseSelect = document.getElementById('diseaseSelect');
+        const resultPanel = document.getElementById('resultPanel');
+
+        function renderWellnessInfo(diseaseKey) {
+            const data = wellnessDatabase[diseaseKey];
+            if (!data) return;
+
+            // 動態組裝 HTML 字串，100% 吻合古風對稱比例
+            resultPanel.innerHTML = `
+                <div class="disease-badge-title">${data.title}</div>
+                
+                <div class="info-section">
+                    <h3>💡 醫理病機分析</h3>
+                    <p>${data.desc}</p>
+                </div>
+
+                <div class="wellness-grid">
+                    <div class="grid-box">
+                        <h4>🍲 推薦湯水 / 食療</h4>
+                        <p>${data.soup}</p>
+                    </div>
+                    <div class="grid-box">
+                        <h4>🧘 日常生活習慣</h4>
+                        <p>${data.habit}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // 監聽下拉選單切換事件
+        diseaseSelect.addEventListener('change', (e) => {
+            renderWellnessInfo(e.target.value);
+        });
+
+        // 網頁首次加載時，自動先渲染第一個「熬夜」的調理方法
+        renderWellnessInfo('sleep');
+
+        // 3. 頂部導覽列跳轉
+        document.getElementById('navHome').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'main_menu.html';
+        });
+
+        document.getElementById('navHistory').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'history.html';
+        });
+
+        document.getElementById('navLogout').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'logout.html';
+        });
+
+        // 漢堡包動態彈出與變形控制
+        const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
+        const navLinksContainer = document.getElementById('navLinksContainer');
+
+        hamburgerBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            this.classList.toggle('active');
+            navLinksContainer.classList.toggle('open');
+        });
+
+        document.addEventListener('click', function () {
+            hamburgerBtn.classList.remove('active');
+            navLinksContainer.classList.remove('open');
+        });
+
+    </script>
+
+</body>
+
+</html>

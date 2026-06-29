@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    <!-- 精準路徑指向 -->
+    <link rel="stylesheet" href="final_project_css/welcome.css">
+
+    
+</head>
+
+<body>
+
+    <!-- 完美保留原有風格的杏林院 Header 橫條 -->
+    <div class="header">
+        <img class="logo-img" src="erb_finalproject_photo/logo.png" alt="◆ 杏林院 ◆"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1 style="display:none;">◆ 杏林院 ◆</h1>
+    </div>
+
+    <!-- 杏林院前院總場景區 -->
+    <div class="yard-stage">
+
+        <!-- 宏偉中式青磚圍牆大橫條 -->
+        <div class="main-wall-row">
+
+            <!-- 左側圍牆：換上高雅大氣的「古典祥雲石雕壁畫圖騰」 -->
+            <div class="wall-relief-box relief-l">
+                <div class="relief-core">褔</div>
+            </div>
+
+            <!-- 左側直排古典對聯 -->
+            <div class="couplet-scroll couplet-l">杏林春暖生妙手</div>
+
+            <!-- 中軸線：正統中式牌樓大門主體 -->
+            <div class="gatehouse-hub" id="chineseGate">
+
+                <!-- 門頂：紅色中式瓦片屋簷 -->
+                <div class="roof-structure"></div>
+
+                <!-- 門楣：高懸「仁心仁術」大紅匾額 -->
+                <div class="center-tablet">仁心仁術</div>
+
+                <!-- 正統中式紅木方門框 -->
+                <div class="square-doorway">
+
+                    <!-- 左側硃砂大紅木門扉 -->
+                    <div class="door-panel door-p-left">
+
+                        <!-- 圓形金色高質感門鈸與手把 -->
+                        <div class="lion-knocker-brass"></div>
+                    </div>
+
+                    <!-- 右側硃砂大紅木門扉 -->
+                    <div class="door-panel door-p-right">
+
+                        <!-- 圓形金色高質感門鈸與手把 -->
+                        <div class="lion-knocker-brass"></div>
+                    </div>
+                </div>
+
+                <!-- 門外懸浮提示框 -->
+                <div class="gate-glow-text">點擊叩門<br>步入杏林院</div>
+            </div>
+
+            <!-- 右側直排古典對聯 -->
+            <div class="couplet-scroll couplet-r">橘井泉香濟世人</div>
+
+            <!-- 右側圍牆：換上高雅大氣的「古典祥雲石雕壁畫圖騰」 -->
+            <div class="wall-relief-box relief-r">
+                <div class="relief-core">褔</div>
+            </div>
+
+        </div>
+
+        <!-- 門前兩級立體灰色階梯 -->
+        <div class="entrance-steps">
+            <div class="step-level step-1"></div>
+            <div class="step-level step-2"></div>
+        </div>
+    </div>
+
+    <!-- 門慢慢打開、流暢延時慢速跳轉腳本 (自帶本地預載與防偷跑門禁安全網) -->
+    <script>
+        // 網頁一打開，立刻在後台默默下載好你最滿意的四合院內院照片，保證開門一瞬間園景 100% 完美亮起！
+        const gardenImgUrl = 'erb_finalproject_photo/garden_view.jpg';
+        const preloadHook = new Image();
+        preloadHook.src = gardenImgUrl;
+
+        // 將所有邏輯完美融合在「單一」點擊事件內，徹底杜絕瀏覽器代碼重疊衝突！
+        document.getElementById('chineseGate').addEventListener('click', function () {
+            const gateHub = this;
+
+            // 1. 硃砂紅木大門正式啟動 3D 空間向內側庭院深處推開並淡出的立體動畫
+            gateHub.classList.add('gate-open');
+
+            // 2. 核心加密門禁：在開門的這一刻，立刻往瀏覽器暫存寫入「hasWelcomed」通行證！
+            // 這能確保後面所有頁面的「防偷跑守衛」100% 放行，使用者就能順暢通行無阻！
+            sessionStorage.setItem('hasWelcomed', 'true');
+
+            // 3. 電影級延時 1.8 秒：等大門完全推開、讓使用者完美欣賞到這張精美的四合院盆景大院景觀後，才優雅跳轉
+            setTimeout(() => {
+                //精確且安全地將用家引導至 user_login.html 登入卡片頁
+                window.location.href = 'user_login.html'; 
+            }, 1800);
+        });
+    </script>
+
+</body>
+
+</html>

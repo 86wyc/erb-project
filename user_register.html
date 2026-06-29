@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杏林院 - 建立新帳戶</title>
+
+    <!-- 精準外部樣式引入：指向獨立的 user_register.css 檔案 -->
+    <link rel="stylesheet" href="final_project_css/user_register.css">
+
+    <!-- 門禁安全守衛：未叩門或重新打開網頁，無條件強制彈回大門迎賓頁 當所有網頁整好後 開啟這個 -->
+
+    
+   <!-- <script>
+        if (!sessionStorage.getItem('hasWelcomed')) {
+            window.location.replace('welcome_page.html'); // 💡 使用 replace 可以鎖死歷史紀錄，防止按上一頁穿幫
+        }
+    </script> -->
+
+</head>
+
+<body>
+
+    <!-- 完美保留原有風格的杏林院 Header 橫條 -->
+    <div class="header">
+        <img class="logo-img" src="erb_finalproject_photo/logo.png" alt="◆ 杏林院 ◆" 
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1 style="display:none;">◆ 杏林院 ◆</h1>
+    </div>
+
+    <!-- 古風大氣使用者註冊卡片 -->
+    <div class="register-card-box">
+        <h2>建立新帳戶</h2>
+        <p class="login-subtitle">請填寫下方資訊以建立您的專屬帳戶，開啟中醫 AI 辨證旅程。</p>
+
+        <!-- 註冊表單（自帶二次密碼相同驗證防錯，並預留 MongoDB 連接介面） -->
+        <form id="registerForm" onsubmit="handleAuthRegister(event)">
+            <div class="form-group">
+                <label for="regUsername">設置使用者帳號：</label>
+                <input type="text" id="regUsername" class="form-control" placeholder="請輸入您想設置的帳號名稱..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="regEmail">電子郵件信箱：</label>
+                <input type="email" id="regEmail" class="form-control" placeholder="例如：marco@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="regPassword">設置密碼：</label>
+                <input type="password" id="regPassword" class="form-control" placeholder="請設置您的登入密碼..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">確認密碼：</label>
+                <input type="password" id="confirmPassword" class="form-control" placeholder="請再次輸入相同密碼確認..." required>
+            </div>
+
+            <button type="submit" class="btn-submit-register">註冊並登入</button>
+        </form>
+
+        <!-- 底部登入導航連結 -->
+        <div class="switch-route-link">
+            已經有杏林院帳號了？<a href="user_login.html">立即返回登入頁面</a>
+        </div>
+    </div>
+
+    <!-- 前端跳轉與二次密碼校對控制中心 -->
+    <script {nonce}>
+
+// 開通DB JS Express Gemini 後 並把最底部的貼上在虛線範圍內 使系統懂得取 寫 
+//-------------------------------------------------------------------------------------//
+
+        function handleAuthRegister(event) {
+            event.preventDefault(); // 阻止表單預設的重整行為
+            
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            // 🔒 貼心防錯：前端第一時間檢查兩次密碼是否一致，防止用戶手滑打錯
+            if (password !== confirmPassword) {
+                alert('兩次輸入的密碼不一致，請重新檢查！');
+                return;
+            }
+            
+            alert('帳戶註冊成功！系統正自動為您登入並導向診症大廳。');
+            window.location.href = 'main_menu.html'; // 順暢引導至診症首頁
+        }
+//-----------------------------------------------------------------------------------------------//
+
+        /* =========================================================================
+               歷史備忘錄：您提供之日後連接 EXPRESS + MONGODB ATLAS 的真實註冊寫入代碼
+           ⚠️ 注意：以下代碼已被註解牢牢封鎖，僅供未來開發參考，目前絕不干擾網頁運行。
+           =========================================================================
+           
+           async function handleAuthRegister(event) {
+               event.preventDefault();
+               
+               const username = document.getElementById('regUsername').value.trim();
+               const email = document.getElementById('regEmail').value.trim();
+               const password = document.getElementById('regPassword').value;
+               const confirmPassword = document.getElementById('confirmPassword').value;
+               
+               if (password !== confirmPassword) return alert('兩次輸入的密碼不一致！');
+               
+               try {
+                   // 向後端 Express 發送 POST 請求，將新帳號數據真正寫入 MongoDB 雲端資料庫
+                   const response = await fetch('http://localhost:3000/api/register', {
+                       method: 'POST',
+                       headers: { 'Content-Type': 'application/json' },
+                       body: JSON.stringify({ username: username, email: email, password: password })
+                   });
+                   const result = await response.json();
+                   
+                   if (result.success) {
+                       alert('雲端帳戶註冊成功！');
+                       window.location.href = 'user_login.html'; // 註冊成功後引導去登入頁
+                   } else {
+                       alert(result.message || '註冊失敗，該使用者名稱或信箱已被佔用！');
+                   }
+               } catch (error) { 
+                   console.error('資料庫寫入連線失敗:', error); 
+                   alert('伺服器連線失敗，請確保後端 Express 正在安全運行！');
+               }
+           }
+        */
+    </script>
+
+</body>
+
+</html>

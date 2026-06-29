@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杏林院 - 智能中醫大廳</title>
+    <!-- 精準外部樣式引入 -->
+    <link rel="stylesheet" href="final_project_css/main_menu.css">
+
+    <!-- 門禁安全守衛：未叩門或重新打開網頁，無條件強制彈回大門迎賓頁 當所有網頁整好後 開啟這個 -->
+    <!-- <script>
+        if (!sessionStorage.getItem('hasWelcomed')) {
+            window.location.replace('welcome_page.html'); // 💡 使用 replace 可以鎖死歷史紀錄，防止按上一頁穿幫
+        }
+    </script> -->
+</head>
+
+<body>
+
+    <!-- 保留原有風格且加入統一導覽按鈕的 Header -->
+    <div class="header">
+        <img class="logo-img" src="erb_finalproject_photo/logo.png" alt="◆ 杏林院 ◆"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1 style="display:none;">◆ 杏林院 ◆</h1>
+
+        <!-- 請精確在中間補上這顆漢堡包按鈕本體！ -->
+        <button class="hamburger-toggle" id="hamburgerMenuBtn">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <!-- 100% 統一按鈕：字眼與截圖完全相同，在此頁面讓「首頁」保持高亮 active 狀態 -->
+        <!-- 帶有漢堡包 id 的完全體 -->
+        <div class="nav-links" id="navLinksContainer">
+
+            <a href="main_menu.html" class="nav-btn active" id="navHome">首頁</a>
+            <a href="history.html" class="nav-btn" id="navHistory">歷史看診紀錄</a>
+            <a href="logout.html" class="nav-btn logout" id="navLogout">發出</a>
+        </div>
+    </div>
+
+    <!-- 主要功能分流大廳 -->
+    <div class="main-content">
+        <div class="menu-container">
+            <h2>請選擇杏林院功能</h2>
+            <p class="menu-subtitle">尊貴的杏林院會員，請點選您今日所需的 AI 智能調理方案：</p>
+
+            <div class="menu-grid">
+
+                <!-- 按鈕一：初步診症 -->
+                <div class="menu-btn" id="btnDiagnose">
+                    <div class="menu-icon">🌿</div>
+                    <div class="menu-btn-title">初步診症</div>
+                    <div class="menu-btn-desc">輸入身體不適病徵，由 AI 醫師進行中醫證型辨證分析與食療推薦。</div>
+                </div>
+
+                <!-- 按鈕二：日常養生 -->
+                <div class="menu-btn wellness" id="btnWellness">
+                    <div class="menu-icon">🍊</div>
+                    <div class="menu-btn-title">日常養生</div>
+                    <div class="menu-btn-desc">依據二十四節氣與體質，提供客製化日常四季茶飲、穴位按摩調理。</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 前端功能導航控制腳本 -->
+    <script>
+        // 1. 大廳功能分流按鈕：初步診症
+        document.getElementById('btnDiagnose').addEventListener('click', function () {
+            window.location.href = 'doctor_option.html';
+        });
+
+        // 2.解除閉關修煉！點擊日常養生，秒速流暢導向全新打造的 wellness.html 頁面！
+        document.getElementById('btnWellness').addEventListener('click', function () {
+            window.location.href = 'wellness.html';
+        });
+
+        // 3. 頂部導覽按鈕：點擊「首頁」立刻原地引導回到 main_menu.html 功能大廳！
+        document.getElementById('navHome').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'main_menu.html';
+        });
+
+        // 4. 頂部導覽按鈕：歷史紀錄跳轉
+        document.getElementById('navHistory').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'history.html';
+        });
+
+        // 5. 點擊「發出」按鈕，精確送去 logout.html 觸發 5 秒古風紅色高亮倒數機制！
+        document.getElementById('navLogout').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'logout.html';
+        });
+
+        // 漢堡包動態彈出與變形控制
+        const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
+        const navLinksContainer = document.getElementById('navLinksContainer');
+
+        hamburgerBtn.addEventListener('click', function (e) {
+            e.stopPropagation(); // 防止點擊事件向上冒泡
+            this.classList.toggle('active'); // 變形為叉叉
+            navLinksContainer.classList.toggle('open'); // 彈出或收起選單面板
+        });
+
+        // 點擊網頁其他任何空白地方，全自動收起漢堡包選單
+        document.addEventListener('click', function () {
+            hamburgerBtn.classList.remove('active');
+            navLinksContainer.classList.remove('open');
+        });
+
+    </script>
+
+</body>
+
+</html>

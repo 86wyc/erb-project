@@ -1,0 +1,334 @@
+/* 杏林院四合院前院大門專屬 CSS (紅底金福照壁與內院景深終極版) */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Georgia', 'Noto Serif HK', 'Times New Roman', serif;
+}
+
+body {
+    background: linear-gradient(to bottom, #d9e2e6 0%, #eceff1 100%); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* 完美繼承原有的纖細草本綠 Header */
+.header {
+    width: 100%;
+    background-color: #e8f5e9;
+    padding: 5px 0 25px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.header .logo-img {
+    max-height: 78px;
+    height: auto;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    margin-top: 2px;   
+}
+
+/* 院子前門總場景 */
+.yard-stage {
+    width: 100%;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* 🧱 宏偉中式圍牆大橫條 - 💡 終極優化：徹底移除格線，100% 強制亮出古典淡黃色粉牆 */
+.main-wall-row {
+    width: 100%;
+    height: 380px;
+    
+    /* 💡 完美修正：改用純顏色指令指定最典雅的古風淡黃色，絕對不會被 Image 屬性誤殺清空！ */
+    background-color: #fff9c4 !important; 
+    
+    /* 💡 徹底清空所有圖片與格線屬性，杜絕任何瀏覽器衝突 */
+    background-image: none !important; 
+    
+    border-top: 16px solid #b71c1c; /* 牆頂依舊完美保留精美的紅色宮殿琉璃瓦片簷線 */
+    box-shadow: inset 0 15px 20px rgba(0,0,0,0.05), 0 10px 30px rgba(0,0,0,0.12);
+    display: flex;
+    justify-content: center; 
+    align-items: flex-end; 
+    position: relative;
+    z-index: 10;
+}
+
+/* 確保牆頂的紅色琉璃瓦片線維持完美效果 */
+.main-wall-row::before {
+    content: "";
+    position: absolute;
+    top: -16px;
+    width: 100%;
+    height: 6px;
+    background: repeating-linear-gradient(90deg, #d32f2f, #d32f2f 12px, #b71c1c 12px, #b71c1c 15px);
+    box-shadow: 0 -3px 6px rgba(0,0,0,0.1);
+}
+
+
+/* 🧱 左右兩側圍牆：升級為大氣、喜慶的「純淨中式紅牆 · 雙線金框祈福照壁」 */
+.wall-relief-box {
+    position: absolute;
+    bottom: 80px;
+    width: 280px;
+    height: 160px;
+    
+    /* 💡 終極優化：徹底移除所有黑色的紅磚方格線，改用最乾淨、帶有柔和光影的硃砂中國紅漸層 */
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%) !important;
+    
+    border: 5px double #ffb300 !important; /* 宮殿級奢華雙線金邊框 */
+    border-radius: 4px !important;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.4), 0 4px 12px rgba(0,0,0,0.3) !important;
+    display: flex !important; 
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 12; 
+}
+.relief-l { left: calc(50% - 475px); } 
+.relief-r { right: calc(50% - 475px); }
+
+
+
+/* 🌟 照壁正中央嵌入的「燙金立體大福字」 */
+.relief-core {
+    display: block !important; 
+    font-family: 'Noto Serif HK', 'Georgia', serif;
+    font-size: 68px; /* 霸氣放大福字 */
+    font-weight: bold;
+    color: #ffca28; /* 燙金黃金色 */
+    line-height: 1;
+    /* 運用大範圍高斯陰影，做出福字從紅牆上狠狠凸出來的真實 3D 浮雕石刻質感 */
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.65));
+    user-select: none;
+    margin-top: -5px;
+}
+
+/* 📜 大氣古典對聯 */
+.couplet-scroll {
+    position: absolute;
+    bottom: 50px; 
+    background-color: #c62828; 
+    color: #ffffff;
+    border: 2px solid #ffb300; 
+    padding: 18px 6px;
+    font-size: 19px;
+    font-weight: bold;
+    width: 44px;
+    text-align: center;
+    line-height: 1.3;
+    letter-spacing: 2px;
+    box-shadow: 3px 6px 15px rgba(0,0,0,0.4);
+    border-radius: 2px;
+    z-index: 50; 
+}
+.couplet-l { left: calc(50% - 215px); }
+.couplet-r { right: calc(50% - 215px); }
+
+/* ⛩️ 中軸線大門主牌樓結構體 */
+.gatehouse-hub {
+    width: 294px;
+    height: 440px; 
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 20;
+}
+
+/* 🏠 門頂：紅色中式瓦片屋簷 */
+.roof-structure {
+    width: 330px; 
+    height: 42px;
+    background: #b71c1c; 
+    background-image: repeating-linear-gradient(90deg, transparent, transparent 16px, #7f0000 16px, #7f0000 19px);
+    border-bottom: 8px solid #3e2723; 
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    position: relative;
+}
+.roof-structure::before, .roof-structure::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    width: 22px;
+    height: 24px;
+    background: #7f0000;
+}
+.roof-structure::before { left: -10px; border-top-left-radius: 100%; transform: rotate(-15deg); }
+.roof-structure::after { right: -10px; border-top-right-radius: 100%; transform: rotate(15deg); }
+
+/* 📜 「仁心仁術」大紅匾額 */
+.center-tablet {
+    width: 100%;
+    height: 48px;
+    background-color: #b71c1c;
+    border: 3px solid #ffb300;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 21px;
+    font-weight: bold;
+    color: #ffb300; 
+    letter-spacing: 12px;
+    padding-left: 12px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    z-index: 25;
+}
+
+.gate-painting { display: none !important; }
+
+/* 🚪 正統中式紅木方門框 - 💡 終極優化：100% 本地讀取你指定的四合院內院實景照 */
+.square-doorway {
+    width: 100%;
+    height: 350px;
+    border: 12px solid #3e2723; 
+    border-top: none;
+    
+    /* 💡 完美修正：路徑精確指向你剛剛存好的 garden_view.jpg 照片！ */
+    /* 這樣做不論有沒有網路，大門一向內推開，0秒內這幅震撼的四合院盆景長廊大院景深就會瞬間亮起！ */
+    background: #ffffff url('../erb_finalproject_photo/garden_view.jpg') no-repeat center center;
+    background-size: cover;
+    
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: inset 0 0 25px rgba(0,0,0,0.2);
+}
+
+
+
+/* 雙扇對開硃砂厚重紅扉木門 */
+.door-panel {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, #991b1b 0%, #b91c1c 70%, #7f1d1d 100%);
+    border: 1px solid #3e2723;
+    transition: transform 2.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 2.3s ease-in-out; 
+    display: flex;
+    align-items: center;
+    z-index: 5;
+}
+
+.door-p-left {
+    left: 0;
+    transform-origin: left center;
+    justify-content: flex-end;
+    padding-right: 15px;
+    box-shadow: inset -6px 0 12px rgba(0,0,0,0.4);
+}
+
+.door-p-right {
+    right: 0;
+    transform-origin: right center;
+    justify-content: flex-start;
+    padding-left: 15px;
+    box-shadow: inset 6px 0 12px rgba(0,0,0,0.4);
+}
+
+/* 正圓形高質感光面黃金拉環手把 */
+.lion-knocker-brass {
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 35% 35%, #fff59d 0%, #fbc02d 40%, #f57f17 80%, #a73a00 100%); 
+    border-radius: 50%;
+    border: 3px solid #f57f17;
+    position: relative;
+    box-shadow: 2px 4px 8px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lion-knocker-brass::after {
+    content: "";
+    width: 26px;
+    height: 26px;
+    border: 5px solid #fbc02d;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -15px;
+    background-color: transparent;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+}
+
+/* 點擊開門向內推入並淡出 */
+.gate-open .door-p-left { 
+    transform: rotateY(-75deg) scale(0.8); 
+    opacity: 0;
+}
+.gate-open .door-p-right { 
+    transform: rotateY(75deg) scale(0.8); 
+    opacity: 0;
+}
+
+/* 「點擊叩門」提示牌 */
+.gate-glow-text {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    width: 180px;
+    background-color: rgba(27, 94, 32, 0.85); 
+    border: 2px solid #ffb300;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #ffb300;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    z-index: 80; 
+    pointer-events: none; 
+    animation: floatingGlow 2.5s infinite ease-in-out;
+    transition: opacity 0.5s ease;
+}
+
+@keyframes floatingGlow {
+    0%, 100% { transform: translate(-50%, -46%); box-shadow: 0 4px 12px rgba(46,125,50,0.4); }
+    50% { transform: translate(-50%, -54%); box-shadow: 0 6px 18px rgba(255,179,0,0.6); }
+}
+
+.gate-open .gate-glow-text {
+    opacity: 0;
+}
+
+/* 🪜 門前兩級大氣的立體灰色青瓦石階梯 */
+.entrance-steps {
+    width: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: -1px; 
+    z-index: 15; 
+    position: relative;
+}
+
+.step-level {
+    background: linear-gradient(to bottom, #b0bec5 0%, #78909c 100%); 
+    border: 1px solid #607d8b;
+    height: 18px;
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+.step-1 { width: 320px; z-index: 16; }
+.step-2 { width: 380px; z-index: 15; margin-top: -1px; height: 20px; }

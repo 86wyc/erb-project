@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>安全登出 - 杏林院</title>
+    <!-- 保留外部樣式表連結 -->
+    <link rel="stylesheet" href="final_project_css/logout.css">
+
+        <!-- 門禁安全守衛：未叩門或重新打開網頁，無條件強制彈回大門迎賓頁 當所有網頁整好後 開啟這個 -->
+
+    
+   <!-- <script>
+        if (!sessionStorage.getItem('hasWelcomed')) {
+            window.location.replace('welcome_page.html'); // 💡 使用 replace 可以鎖死歷史紀錄，防止按上一頁穿幫
+        }
+    </script> -->
+    
+    <!-- 終極外觀金鐘罩：直接在網頁內注入最強樣式，保證 100% 逼出你最滿意的高質感古風效果！ -->
+    <style>
+        .logout-card {
+            background: #ffffff !important;
+            padding: 45px 35px !important;
+            border-radius: 12px !important;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08) !important; /* 還原高質感立體陰影 */
+            border-top: 8px solid #2e7d32 !important; /* 醫館招牌草本綠頂條 */
+            text-align: center !important;
+        }
+        .logout-card h2 {
+            font-size: 26px !important;
+            color: #1b5e20 !important; /* 沉穩綠色標題 */
+            font-weight: bold !important;
+            margin-bottom: 12px !important;
+            letter-spacing: 1px !important;
+        }
+        .logout-timeout {
+            font-size: 16px !important;
+            color: #3e2723 !important; /* 古典紅木褐色字體 */
+            margin-top: 25px !important;
+            margin-bottom: 10px !important;
+            font-weight: bold !important;
+        }
+        /* 🌟 100% 強制逼出你最滿意的喜慶紅色高亮倒數數字 */
+        .timeout-highlight {
+            color: #d32f2f !important; 
+            font-size: 24px !important;
+            font-weight: bold !important;
+            margin: 0 5px !important;
+            display: inline-block !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 統一風格的草本綠 Header -->
+    <div class="header">
+        <img class="logo-img" src="erb_finalproject_photo/logo.png" alt="◆ 杏林院 ◆"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1 style="display:none;">◆ 杏林院 ◆</h1>
+    </div>
+
+    <!-- 主要內容包裹區 -->
+    <div class="main-content">
+        <div class="logout-card">
+            <!-- 把普通的 鎖頭、最精緻的綠色剔號！ -->
+            <h2>✅ 安全登出成功</h2>
+            <p>您已成功發出並切斷與杏林院的安全聯繫。</p>
+            
+            <div class="logout-timeout">
+                系統將在 <span id="countdown" class="timeout-highlight">5</span> 秒後自動返回登入大廳...
+            </div>
+            
+            <p style="font-size: 13px; color: #95a5a6; margin-top: 15px;">看診隱私快取已安全清空，感謝您的使用。</p>
+        </div>
+    </div>
+
+    <!-- 倒數跳轉控制腳本：5秒完結後精確前往 user_login.html -->
+    <script>
+        let countdown = 5;
+        const countdownEl = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            if (countdownEl) {
+                countdownEl.innerText = countdown;
+            }
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                sessionStorage.clear(); // 清除醫學隱私快取通行證
+                window.location.href = 'user_login.html'; // 強制重定向回到正確的 user_login.html
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

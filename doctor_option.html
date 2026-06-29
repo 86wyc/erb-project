@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中醫 AI 初步診症系統</title>
+    <link rel="stylesheet" href="final_project_css/doctor_option.css">
+
+    <!-- 門禁安全守衛：未叩門或重新打開網頁，無條件強制彈回大門迎賓頁 當所有網頁整好後 開啟這個 -->
+    <!-- <script>
+        if (!sessionStorage.getItem('hasWelcomed')) {
+            window.location.replace('welcome_page.html'); // 💡 使用 replace 可以鎖死歷史紀錄，防止按上一頁穿幫
+        }
+    </script> -->
+
+</head>
+
+
+
+<body>
+
+    <div class="header">
+        <!-- 招牌圖片路徑：已指向整齊收納的專屬圖片資料夾 -->
+        <img class="logo-img" src="erb_finalproject_photo/logo.png" alt="◆ 杏林院 ◆"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1 style="display:none;">◆ 杏林院 ◆</h1>
+
+        <!-- Header 右下角的導覽列 -->
+        <button class="hamburger-toggle" id="hamburgerMenuBtn">
+            <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+        </button>
+
+        <div class="nav-links" id="navLinksContainer">
+
+            <a href="doctor_option.html" class="nav-btn active" id="navHome">首頁</a>
+            <a href="history.html" class="nav-btn" id="navHistory">歷史看診紀錄</a>
+            <a href="#" class="nav-btn logout" id="navLogout">登出</a>
+        </div>
+    </div>
+
+    <!-- 包裹輸入卡片與結果卡片的主內容包裹區 -->
+    <div class="main-content">
+
+        <!-- 輸入表單卡片 -->
+        <div class="container">
+            <div class="doctor-avatar" id="doctorAvatar" title="點擊聽取語音提示">
+
+                <!-- 醫生相片路徑：預設載入女醫生，系統將自動啟動廣東話女聲發音 female 男醫生則男聲 male -->
+                <img id="doctorImg" src="erb_finalproject_photo/female_doctor.png" alt="醫師相片"
+                    onerror="showPlaceholder()">
+            </div>
+
+            <h2>中醫 AI 智能助理</h2>
+            <p class="subtitle">請在下方輸入您的身體不適症狀，AI 醫師將為您做初步辨證。</p>
+
+            <div class="input-group">
+                <label for="symptoms">請輸入病徵：</label>
+                <textarea id="symptoms" placeholder="例如：咳、喉嚨痛、流鼻水、怕冷..."></textarea>
+            </div>
+
+            <button class="btn-submit" id="submitBtn">開始初步診症</button>
+
+            <div class="disclaimer">
+                <strong>⚠️ 免責聲明：</strong><br>
+                本系統僅供學術專案測試與參考，利用 AI 技術進行初步辨證模擬。AI 回覆之食療、中藥及日常建議絕不能替代專業註冊中醫師之臨床診斷。如身體感到嚴重不適，請立即求醫。
+            </div>
+        </div>
+
+        <!-- 預留給 Gemini + DB 的數據結果卡片 (含份量與做法) -->
+        <div class="result-card" id="resultCard">
+            <div class="result-title">📋 杏林院辨證結果</div>
+
+            <!-- 動態看診時間顯示區 -->
+            <div id="resDateLabel" class="result-date-label">診症時間：加載中...</div>
+
+
+            <!-- 1. 疑似證型 -->
+            <div class="result-section">
+                <div class="section-label">疑似證型：</div>
+                <div id="resDisease" class="disease-badge">加載中...</div>
+            </div>
+
+            <!-- 2. 食療食譜 (帶圖片、份量及做法) -->
+            <div class="result-section">
+                <div class="section-label">推薦食療食譜：</div>
+                <div class="item-grid" id="resRecipes" style="grid-template-columns: 1fr;">
+                    <div class="item-box"
+                        style="text-align: left; display: flex; gap: 15px; align-items: flex-start; padding: 15px;">
+                        <img id="recipeImg" src="" alt="食療圖片"
+                            style="width: 130px; height: 100px; flex-shrink: 0; margin-bottom: 0;">
+                        <div style="flex-grow: 1;">
+                            <div id="recipeName" class="item-name"
+                                style="font-size: 18px; color: #1b5e20; margin-bottom: 8px;">食譜名稱</div>
+
+                            <div class="section-label" style="font-size: 14px; margin-bottom: 4px;">所需材料與份量：</div>
+                            <div id="recipeIngredients" class="text-content"
+                                style="margin-top: 0; margin-bottom: 8px; background-color: #f1f8e9; padding: 8px; font-size: 14px; border-left: 3px solid #81c784;">
+                                材料加載中...</div>
+
+                            <div class="section-label" style="font-size: 14px; margin-bottom: 4px;">烹飪做法：</div>
+                            <div id="recipeMethod" class="text-content"
+                                style="margin-top: 0; padding: 8px; font-size: 14px;">煮法步驟描述...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. 建議參考中藥 -->
+            <div class="result-section">
+                <div class="section-label">建議參考中藥 (含推薦份量)：</div>
+                <div class="item-grid" id="resHerbs">
+                    <div class="item-box">
+                        <img id="herbImg1" src="" alt="中藥圖片 1">
+                        <div id="herbName1" class="item-name">中藥 1</div>
+                    </div>
+                    <div class="item-box">
+                        <img id="herbImg2" src="" alt="中藥圖片 2">
+                        <div id="herbName2" class="item-name">中藥 2</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. 日常注意 -->
+            <div class="result-section">
+                <div class="section-label">日常注意事項：</div>
+                <div id="resPrecautions" class="text-content"
+                    style="background-color: #fff8e1; border: 1px solid #ffe082; color: #b78103; font-weight: 500;">
+                    日常建議載入中...
+                </div>
+            </div>
+        </div>
+
+    </div> 
+
+
+
+    <!-- JavaScript 控制核心 -->
+    <script>
+        const avatarDiv = document.getElementById('doctorAvatar');
+        const welcomeText = "歡迎來到杏林院。請在下方輸入你的病徵，我會為你進行初步診症。";
+        const voiceType = 'male';
+
+        function showPlaceholder() {
+            const img = document.getElementById('doctorImg');
+            if (img) img.style.display = 'none';
+            if (!avatarDiv.querySelector('.avatar-placeholder')) {
+                avatarDiv.innerHTML = '<div class="avatar-placeholder">點擊播放<br>醫師語音<br>(或放入相片)</div>';
+            }
+        }
+
+        // 語音播放核心函數 (自帶「相聲自動聯動偵測」) 男醫生相則男聲 女醫生相則女聲 
+        function speakInstructions() {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+
+                const utterance = new SpeechSynthesisUtterance(welcomeText);
+                utterance.lang = 'zh-HK';
+                utterance.rate = 1.0;
+
+                const doctorImgSrc = document.getElementById('doctorImg').src.toLowerCase();
+                let activeVoice = voiceType;
+                if (doctorImgSrc.includes('female')) { activeVoice = 'female'; }
+
+                const voices = window.speechSynthesis.getVoices();
+                if (voices.length > 0) {
+                    const hkVoices = voices.filter(v => v.lang === 'zh-HK' || v.lang.includes('HK'));
+                    if (hkVoices.length > 0) {
+                        if (activeVoice === 'female') {
+                            const femaleVoice = hkVoices.find(v => v.name.toLowerCase().includes('female') || v.name.includes('Tracy') || v.name.includes('Sinji') || v.name.includes('Ting') || v.name.includes('Sin-Ji'));
+                            utterance.voice = femaleVoice || hkVoices;
+                        } else {
+                            const maleVoice = hkVoices.find(v => v.name.toLowerCase().includes('male') || v.name.includes('Danny'));
+                            utterance.voice = maleVoice || hkVoices[hkVoices.length - 1];
+                        }
+                    }
+                }
+                utterance.onstart = function () { avatarDiv.classList.add('speaking'); };
+                utterance.onend = function () { avatarDiv.classList.remove('speaking'); };
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = function () { window.speechSynthesis.getVoices(); };
+        }
+
+        document.body.addEventListener('click', function firstClick() {
+            speakInstructions();
+            document.body.removeEventListener('click', firstClick);
+        }, { once: true });
+
+        avatarDiv.addEventListener('click', function (e) {
+            e.stopPropagation();
+            speakInstructions();
+        });
+
+        // 開通DB JS Express Gemini 後 並把最底部的貼上在虛線範圍內 使系統懂得取 寫 及跟AI
+        //--------------------------------------------------------------------------------------------//
+
+        // 點擊診症按鈕的動態模擬與填入邏輯
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            const symptoms = document.getElementById('symptoms').value.trim();
+            if (!symptoms) {
+                alert('請先輸入您的病徵！');
+                return;
+            }
+
+            const now = new Date();
+            document.getElementById('resDateLabel').innerText = "現場即時診症：" + now.toLocaleString('zh-HK');
+
+            document.getElementById('resDisease').innerText = "風熱犯肺證";
+            document.getElementById('recipeName').innerText = "冰糖燉雪梨";
+            document.getElementById('recipeIngredients').innerText = "雪梨 1 個、冰糖 15-20 克、水 適量。";
+            document.getElementById('recipeMethod').innerText = "1. 將雪梨洗淨，橫切開頂部做蓋，用湯匙挖去梨核。\n2. 在梨心空處放入冰糖，蓋回頂蓋，放入深碗。\n3. 隔水燉煮 30-40 分鐘，至雪梨軟爛，喝湯吃梨肉。";
+            document.getElementById('herbName1').innerText = "金銀花 (10g)";
+            document.getElementById('herbName2').innerText = "連翹 (15g)";
+            document.getElementById('resPrecautions').innerText = "請注意防風保暖，多喝溫開水。飲食宜清淡，忌食辛辣、煎炸及油膩食物。保持充足睡眠，避免過度勞累。";
+
+            const resultCard = document.getElementById('resultCard');
+            resultCard.style.display = 'block';
+            resultCard.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        //----------------------------------------------------------------------------------------------//
+
+        // 跨網頁聯動核心：歷史紀錄點詳情自動彈出
+        // 將讀取與渲染包裹在 300 毫秒的延遲計時器中，確保絕對不被相片保護機制沖刷掉！
+
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const savedDataStr = sessionStorage.getItem('reviewData');
+                if (savedDataStr) {
+                    const oldData = JSON.parse(savedDataStr);
+
+                    // 動態還原時間與內容
+                    document.getElementById('resDateLabel').innerText = "看診歷史回顧：" + (oldData.visitDate || "2026年06月27日 13:19");
+                    document.getElementById('resDisease').innerText = oldData.disease;
+                    document.getElementById('recipeName').innerText = oldData.recipeName;
+                    document.getElementById('recipeIngredients').innerText = oldData.recipeIngredients;
+                    document.getElementById('recipeMethod').innerText = oldData.recipeMethod;
+                    document.getElementById('herbName1').innerText = oldData.herbName1;
+                    document.getElementById('herbName2').innerText = oldData.herbName2;
+                    document.getElementById('resPrecautions').innerText = oldData.precautions;
+
+
+
+                    // 讓隱藏的結果卡片展示
+                    const resultCard = document.getElementById('resultCard');
+                    resultCard.style.display = 'block';
+
+                    // 平滑滾動過去
+                    setTimeout(() => {
+                        resultCard.scrollIntoView({ behavior: 'smooth' });
+                        sessionStorage.removeItem('reviewData'); // 釋放記憶體
+                    }, 100);
+                }
+            }, 300); // 給瀏覽器 300 毫秒安置排版，安全度 100%
+        });
+
+
+
+        // 點擊頂部「首頁」按鈕，0秒精確帶你退回到 main_menu.html 功能大廳！
+        document.getElementById('navHome').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'main_menu.html'; //這行能安全解除卡在原地的死結
+        });
+
+        // 點擊頂部「歷史看診紀錄」按鈕
+        document.getElementById('navHistory').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'history.html';
+        });
+
+        // 點擊頂部紅色「發出 / 登出」按鈕，精確送去 logout.html 觀看倒數特效
+        document.getElementById('navLogout').addEventListener('click', function (e) {
+            e.preventDefault();
+            window.location.href = 'logout.html';
+        });
+
+
+        // 檢查本地是否有真實相片檔案
+        const testImg = new Image();
+        testImg.src = document.getElementById('doctorImg').src;
+        testImg.onerror = function () {
+            showPlaceholder();
+        };
+
+        // 漢堡包動態彈出與變形控制
+        const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
+        const navLinksContainer = document.getElementById('navLinksContainer');
+        hamburgerBtn.addEventListener('click', function (e) { e.stopPropagation(); this.classList.toggle('active'); navLinksContainer.classList.toggle('open'); });
+        document.addEventListener('click', function () { hamburgerBtn.classList.remove('active'); navLinksContainer.classList.remove('open'); });
+
+
+
+        /* =========================================================================
+            歷史備忘錄：您剛剛提供的真實對接程式碼（修正中藥陣列版本）
+        ⚠️ 注意：以下代碼已用多行註解鎖定，僅供未來解鎖開發使用，目前絕不干擾網頁運行。
+        
+        當設定好DB JS EXPRESS 後使用以下程式 並DELETE 以上同樣的程式碼
+        =========================================================================
+
+       /* 備忘：日後後端與資料庫架設完成後，只需解鎖下方這段代碼即可全線通電運行
+
+
+       document.getElementById('submitBtn').addEventListener('click', async function() {
+           const symptoms = document.getElementById('symptoms').value.trim();
+           if (!symptoms) return alert('請先輸入您的病徵！');
+           
+           try {
+               const response = await fetch('http://localhost:3000/api/diagnose', {
+                   method: 'POST',
+                   headers: { 'Content-Type': 'application/json' },
+                   body: JSON.stringify({ symptoms: symptoms })
+               });
+               const result = await response.json();
+               
+               if (result.success) {
+                   const aiData = result.data; // 這是後端從 Gemini AI 格式化拿回來的數據
+                   
+                   // 完美加進去：串接真實後端時，從資料庫撈取當時紀錄的時間精確填入時間標籤
+                   document.getElementById('resDateLabel').innerText = "現場即時診症：" + new Date(aiData.date).toLocaleString('zh-HK');
+
+                   document.getElementById('resDisease').innerText = aiData.disease;
+                   document.getElementById('recipeName').innerText = aiData.recipe.name;
+                   document.getElementById('recipeIngredients').innerText = aiData.recipe.ingredients;
+                   document.getElementById('recipeMethod').innerText = aiData.recipe.method;
+                   document.getElementById('resPrecautions').innerText = aiData.precautions;
+                   
+                   // 從 MongoDB 雲端資料庫抓取對應的動態圖片網址與名稱並渲染
+                   document.getElementById('recipeImg').src = aiData.recipe.imageUrl;
+                   document.getElementById('herbImg1').src = aiData.herbs[0].imageUrl;
+                   document.getElementById('herbName1').innerText = aiData.herbs[0].name;
+                   document.getElementById('herbImg2').src = aiData.herbs[1].imageUrl;
+                   document.getElementById('herbName2').innerText = aiData.herbs[1].name;
+                   
+                   const resultCard = document.getElementById('resultCard');
+                   resultCard.style.display = 'block';
+                   resultCard.scrollIntoView({ behavior: 'smooth' });
+               }
+           } catch (error) { console.error('後端連線失敗:', error); }
+       });
+       */
+
+    </script>
+</body>
+
+</html>
