@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <title>用戶登入</title>
+</head>
+
+<body>
+    <h2>帳號登入</h2>
+    <% if (locals.successMessage) { %>
+        <div
+            style="color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; width: 280px;">
+            <%= successMessage %>
+        </div>
+        <% } %>
+
+            <% if (locals.errorMessage) { %>
+                <div class="error-msg" style="color:red;">
+                    <%= errorMessage %>
+                </div>
+                <% } %>
+                    <form action="/login" method="POST">
+                        <div>
+                            <label>帳號 (用戶名 或 Email):</label>
+                            <input type="text" name="account" required>
+                        </div>
+                        <div>
+                            <label>密碼:</label>
+                            <input type="password" name="password" required>
+                        </div>
+
+                        <button type="submit">登入</button>
+                    </form>
+
+                    <p>
+                        還沒有帳號？<a href="/register">前往註冊</a> |
+                        <a href="/changePassword">修改密碼</a>
+                    </p>
+</body>
+
+</html>

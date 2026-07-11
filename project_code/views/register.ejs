@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <title>用戶註冊</title>
+</head>
+
+<body>
+  <a href="/">回到主頁</a>
+  <h2>帳號註冊</h2>
+  <form action="/register" method="POST">
+    <div>
+      <label>用戶名:</label>
+      <input type="text" name="username" required>
+    </div>
+    <div>
+      <label>Email:</label>
+      <input type="email" name="email" required>
+    </div>
+    <div>
+      <label>密碼:</label>
+      <input type="password" name="password" minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        title="密碼長度至少 8 個字元，且必須包含英文大寫與小寫字母" required>
+      <small style="color: #666; display: block; margin-top: 4px;">
+        (密碼長度至少 8 個字元，且必須包含英文大寫與小寫字母)
+      </small>
+    </div>
+    <div>
+      <label>確認密碼:</label>
+      <input type="password" name="confirmPassword" minlength="8" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"
+        title="密碼長度至少 8 個字元，且必須包含英文大寫與小寫字母" required>
+    </div>
+
+    <hr>
+    <h3>基本體質資料</h3>
+
+    <div>
+      <label>年齡:</label>
+      <input type="number" name="age" min="18" max="100" required>
+      <small style="color: #666;">(限制 18 至 100 歲)</small>
+    </div>
+    <div>
+      <label>性別:</label>
+      <input type="radio" name="gender" value="男" checked> 男
+      <input type="radio" name="gender" value="女"> 女
+    </div>
+    <div>
+      <label>身高 (cm):</label>
+      <input type="number" name="height" step="0.1" min="1" max="200" required>
+    </div>
+    <div>
+      <label>體重 (kg):</label>
+      <input type="number" name="weight" step="0.1" min="1" max="300" required>
+    </div>
+    <div>
+      <label>電話:</label>
+      <input type="tel" name="phone" pattern="^[2356789]\d{7}$" title="請輸入正確的 8 位數香港電話號碼" required>
+      <small style="color: #666;">(香港 8 位數字電話)</small>
+    </div>
+
+    <br>
+    <% if (locals.errorMessage) { %>
+      <div class="error-msg"
+        style="color: red; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; width: 280px;">
+        ⚠️ <%= errorMessage %>
+      </div>
+      <% } %>
+        <button type="submit">註冊</button>
+  </form>
+</body>
+
+</html>

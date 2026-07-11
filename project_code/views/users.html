@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <title>個人資料中心</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 30px;
+    }
+
+    .profile-card {
+      width: 450px;
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      background-color: #fff;
+    }
+
+    .info-group {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+
+    .label {
+      font-weight: bold;
+      color: #555;
+    }
+
+    /* 管理員專屬樣式 */
+    .admin-box {
+      width: 450px;
+      border: 2px dashed #de1212;
+      padding: 20px;
+      border-radius: 8px;
+      background-color: #fff3f3;
+      margin-top: 20px;
+    }
+
+    .btn-admin {
+      display: inline-block;
+      background-color: #de1212;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
+    /* ─── 新增：登出按鈕樣式 ─── */
+    .btn-logout {
+      display: inline-block;
+      background-color: #6c757d;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-top: 20px;
+      transition: background-color 0.2s;
+    }
+
+    .btn-logout:hover {
+      background-color: #5a6268;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>歡迎回來，<%= user.username %>！</h2>
+
+  <div class="profile-card">
+    <h3>基本帳戶與體質資料</h3>
+    <div class="info-group"><span class="label">電子郵件:</span>
+      <%= user.email %>
+    </div>
+    <div class="info-group"><span class="label">帳戶權限:</span>
+      <%= user.role==='admin' ? '系統管理員' : '一般會員' %>
+    </div>
+    <div class="info-group"><span class="label">年齡:</span>
+      <%= user.age %> 歲
+    </div>
+    <div class="info-group"><span class="label">性別:</span>
+      <%= user.gender %>
+    </div>
+    <div class="info-group"><span class="label">身高/體重:</span>
+      <%= user.height %> cm / <%= user.weight %> kg
+    </div>
+    <div class="info-group"><span class="label">聯絡電話:</span>
+      <%= user.phone %>
+    </div>
+  </div>
+
+  <% if (user.role==='admin' ) { %>
+    <div class="admin-box">
+      <h3 style="color: #de1212; margin-top: 0;">🛡️ 管理員控制台</h3>
+      <p>偵測到您的帳號身分為系統管理員，您可以執行以下進階操作：</p>
+      <a href="/users" class="btn-admin">查看所有註冊用戶清單</a>
+    </div>
+    <% } %>
+
+      <div>
+        <a href="/login/logout" class="btn-logout">安全登出</a>
+      </div>
+      <script>
+        // 專治各家瀏覽器「按上一頁」看到舊資料的神仙程式碼
+        window.addEventListener('pageshow', function (event) {
+          const perfEntries = window.performance && window.performance.getEntriesByType ? window.performance.getEntriesByType('navigation') : [];
+          const isBackForward = perfEntries.length > 0 && perfEntries[0].type === 'back_forward';
+
+          // 如果是按上一頁進來的，或者頁面是從瀏覽器快取（persisted）恢復的
+          if (isBackForward || event.persisted) {
+            // 強制整頁重新向後端要求，這時沒 Token 就會立刻被中間件踢去 /login
+            window.location.reload();
+          }
+        });
+      </script>
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+const express = require('express');
+const router = express.Router();
+
+const {MongoClient, ObjectId} = require("mongodb");
+const uri = "mongodb://localhost:27017";
+
+router.post('/add', async function(req, res, next) {
+  const client = new MongoClient(uri);
+  try {
+    req.body.age = Number(req.body.age);
+    const database = client.db('school');
+    await database.collection("teacher").insertOne(req.body);
+    res.redirect("/teacherList.html");
+  } finally {
+    await client.close();
+  }
+});
+router.get('/list', async function(req, res, next) {
+  const client = new MongoClient(uri);
+  try {
+    res.json(await client.db('school').collection("teacher").find()
+        .sort({name:1,age:1}).project({name:1,age:1,mobile:1, address:1, sex:1}).toArray());
+  } finally {
+    await client.close();
+  }
+});
+router.get('/edit/:id', async function(req, res, next) {
+  const client = new MongoClient(uri);
+  try {
+    const data = req.params.id=="0" ? {} : 
+      await client.db('school').collection("teacher").findOne(
+        {_id:new ObjectId(req.params.id)}
+    );
+    res.render("teacher", data);
+  } finally {
+    await client.close();
+  }
+});
+router.post('/update', async function(req, res, next) {
+  const client = new MongoClient(uri);
+  try {
+    const id = req.body._id;
+    delete req.body._id;
+    req.body.age = Number(req.body.age);
+    await client.db('school').collection("teacher").updateOne({_id:new ObjectId(id)}, {$set:req.body});
+    res.redirect("/teacherList.html");
+  } finally {
+    await client.close();
+  }
+});
+router.get('/delete/:id', async function(req, res, next) {
+  const client = new MongoClient(uri);
+  try {
+    console.log("id",req.params.id);
+    await client.db('school').collection("teacher").deleteOne({_id: new ObjectId(req.params.id)});
+    res.redirect("/teacherList.html");
+  } finally {
+    await client.close();
+  }
+});
+router.get('/search',async function(req,res,next){
+  // const regex_findincludeAcharBegin = "^A";
+  // const regex_includeText = "database";
+  // const regex_endWith = ".com$";
+  let searchtext = req.query.searchtext;
+  const client = new MongoClient(uri);
+  try {
+    const database = client.db("school");
+    const query1 = {$or:[{name:{$regex: searchtext}},{mobile:{$regex: searchtext}}]};
+
+
+    // const query1 = {$or: [
+    //   { name: {$regex: searchtext } }
+    // ],
+    // $or: [
+    //   { mobile: {$regex: searchtext}} ]
+    // $and: [
+    //   { age: {$lt: 30}} ]
+    // };
+    const data = await database.collection('teacher').find(query1).toArray();    
+    res.json(data);
+  } finally {
+    await client.close();
+  }
+;})
+
+module.exports = router;

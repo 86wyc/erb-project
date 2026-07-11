@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員登入 - 杏林院</title>
+    <link rel="stylesheet" href="./final_project_css/user_login.css">
+
+</head>
+
+<body>
+
+    <!-- 完美保留原有風格的杏林院 Header 橫條 -->
+    <div class="header">
+        <img class="logo-img" src="erb_finalproject_photo/logo.png" alt="◆ 杏林院 ◆" 
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <h1 style="display:none;">◆ 杏林院 ◆</h1>
+    </div>
+
+    <!-- 古風大氣使用者登入卡片 -->
+    <div class="login-card-box">
+        <h2>會員登入</h2>
+        <p class="login-subtitle">歡迎步入杏林院，請登入以開啟 AI 智能辨證大腦。</p>
+
+        <!-- 登入表單（預留給第二階段對接後端驗證，目前採取最流暢的即時模擬跳轉） -->
+        <form id="loginForm" onsubmit="handleAuthLogin(event)">
+            <div class="form-group">
+                <label for="username">使用者帳號 (或電子郵件)：</label>
+                <input type="text" id="username" class="form-control" placeholder="請輸入您的登入帳號..." required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">密碼：</label>
+                <input type="password" id="password" class="form-control" placeholder="請輸入您的密碼..." required>
+            </div>
+
+            <button type="submit" class="btn-submit-login">確認登入</button>
+        </form>
+
+        <!-- 底部註冊導航連結 -->
+        <div class="switch-route-link">
+            還沒有杏林院帳號？<a href="user_register">立即註冊帳戶</a>
+        </div>
+    </div>
+
+
+
+        <!-- 前端跳轉腳本控制中心（已為您完美埋入日後 MongoDB 雲端通電備忘錄） -->
+    <script {nonce}>
+        // 點擊安全登入後，會立刻流暢地帶你跨入正式診症首頁！
+
+// 開通DB JS Express Gemini 後 並把最底部的貼上在虛線範圍內 使系統懂得取 寫 
+//-------------------------------------------------------------------------------------//
+        function handleAuthLogin(event) {
+            event.preventDefault(); // 阻止表單預設的頁面重整行為
+            window.location.href = 'main_menu.html';
+        }
+
+//--------------------------------------------------------------------------------------//
+        /* =========================================================================
+               歷史備忘錄：您提供之日後連接 EXPRESS + MONGODB ATLAS 的真實登入對接代碼
+           ⚠️ 注意：以下代碼已被註解牢牢封鎖，僅供未來開發參考，目前絕不干擾網頁運行。
+           =========================================================================
+           
+           async function handleAuthLogin(event) {
+               event.preventDefault();
+               
+               const username = document.getElementById('username').value.trim();
+               const password = document.getElementById('password').value.trim();
+               
+               try {
+                   // 向後端 Express 伺服器發送登入驗證請求
+                   const response = await fetch('http://localhost:3000/api/login', {
+                       method: 'POST',
+                       headers: { 'Content-Type': 'application/json' },
+                       body: JSON.stringify({ username: username, password: password })
+                   });
+                   const result = await response.json();
+                   
+                   if (result.success) {
+                       // 登入成功，將用戶資訊或 Token 寫入瀏覽器暫存，並跳轉至診症主頁
+                       sessionStorage.setItem('userToken', result.token);
+                       window.location.href = 'main_menu.html';
+                   } else {
+                       // 密碼打錯或帳號不存在，跳出警示
+                       alert(result.message || '登入失敗，請檢查帳號與密碼！');
+                   }
+               } catch (error) { 
+                   console.error('後端連線失敗:', error); 
+                   alert('伺服器連線失敗，請確保後端 Express 正在安全運行！');
+               }
+           }
+        */
+    </script>
+
+
+</body>
+
+</html>

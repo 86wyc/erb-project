@@ -4,8 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 
 var app = express();
 
@@ -13,20 +12,36 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+const session = require('express-session');
+const flash = require('connect-flash');
+
+// 啟用 Session 中間件
+app.use(session({
+  secret: 'tcm_session_secret',
+  resave: false,
+  saveUninitialized: true
+}));
+
+// 啟用 Flash 中間件
+app.use(flash());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/consult', require('./routes/consult'));
+var indexRouter = require('./routes/index');
 
-// app.use('/api', require('./routes/api'));
-// app.use('/login', require('./routes/login'));
-// app.use('logout', require('./routes/logout'));
-// app.use('/register', require('./routes/register'));
+
+app.use('/', indexRouter);
+app.use('/userInfo', require('./routes/userInfo'));
+app.use('/usersList', require('./routes/usersList'));
+app.use('/consult', require('./routes/consult'));
+app.use('/register', require('./routes/register'));
+app.use('/changePassword', require('./routes/changePassword'));
+app.use('/login', require('./routes/login'));
+
 
 
 
