@@ -58,12 +58,12 @@ router.post('/', async function (req, res, next) {
       req.flash('error', '註冊失敗：年齡必須在 18 至 100 歲之間！');
       return res.redirect('/register');
     }
-    if (numHeight <= 130 || numHeight > 200) {
-      req.flash('error', '註冊失敗：身高不能超過 200 cm！');
+    if (numHeight < 130 || numHeight > 200) {
+      req.flash('error', '註冊失敗：身高不能小過 130 cm 及 超過 200 cm！');
       return res.redirect('/register');
     }
-    if (numWeight <= 20 || numWeight > 300) {
-      req.flash('error', '註冊失敗：體重不能超過 300 kg！');
+    if (numWeight < 20 || numWeight > 300) {
+      req.flash('error', '註冊失敗：體重不能少過 20 kg 及 超過 300 kg！');
       return res.redirect('/register');
     }
 
