@@ -1,0 +1,46 @@
+@startuml
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+skinparam Shadowing false
+
+package "CORRECT ARCHITECTURE" {
+
+  package "FRONTEND LAYER" as FE {
+    [Landing Page]
+    [Doctor Page]
+    [History Page]
+  }
+
+  package "BACKEND LAYER" as BE {
+    folder "Routes" as RoutesFolder {
+      [ /register, /consult, /history, /update ] as Routes
+    }
+    folder "Services" as ServicesFolder {
+      [ QwenService, ImageService ] as Services
+    }
+    Routes -[hidden]down-> Services
+  }
+
+  database "MongoDB Database" as DB {
+    folder "Collections" {
+      [users Collection]
+      [history Collection]
+    }
+  }
+
+  node "Qwen AI External API" as Qwen {
+    [Generates:\n- Diagnosis\n- Prescription\n- Image Keyword] as QwenTasks
+  }
+
+}
+
+FE --> Routes : HTTP REST API
+Services --> QwenTasks
+Services --> DB
+
+legend bottom left
+  Frontend <-> Backend (REST API)
+  Backend <-> Qwen AI (API Call)
+  Backend <-> MongoDB (Database)
+end legend
+@enduml

@@ -1,0 +1,14 @@
+杏林院的全套 CRUD 核心架構拆解
+
+1. Create (增 / 寫入) — 1.註冊功能：用家填寫新帳戶並送出，後端會將全新的使用者資料 Create（寫入） 到 MongoDB 的 users 集合中。
+                         2.診症日誌寫入：用家在 doctor_option.html 看完 AI 醫師之後，系統會自動把這次看診的真實日期、用家自述病徵、以及 AI 輸出的辨證處方， 全自動 Create（新增） 到 MongoDB 的 history 集合中。
+
+2. Read (查 / 讀取) — 當用家點開 history.html（歷史紀錄頁）時，後端會向 MongoDB 發起查詢，把該用家過去所有的看診卡片動態 Read（撈取） 出來並畫在時間軸上。歷史詳情還原：點擊「查看詳情」按鈕，
+                           
+                       前端會 Read（讀取） 快取數據，跳回doctor_option 還原整張藥材與調理大卡片。
+
+3. Delete (刪 / 移除) — 在 history.html 裡面為你 帶有那顆「🗑️ 刪除紀錄」硃砂紅按鈕！用家一點擊，前端會發送 DELETE 請求，命令後端去資料庫裡精確 Delete（删除） 該筆看診紀錄，讓它在畫面上瞬間灰飛煙滅。
+
+4. Update (改 / 更新) — 密碼與快取更新：在全端系統中，Update 的表現形式非常多元。在系統裡，用家每次看診時，前端與後端會動態 Update（更新） 瀏覽器的 sessionStorage 會話令牌和通行證狀態
+                        （如 isLoggedIn、reviewData 等），這在安全性路由中屬於「狀態機更新（State Update）」。另外10 大都市病數據也放進 MongoDB。當更改配方時，直接去 Update（修改） 文字，
+                         前端網頁就會全自動同步更新！
