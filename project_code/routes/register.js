@@ -53,7 +53,10 @@ router.post('/', async function (req, res, next) {
     const numAge = Number(age);
     const numHeight = Number(height);
     const numWeight = Number(weight);
-
+    if (username.length < 3 || username.length > 10) {
+      req.flash('error', '註冊失敗：用戶名長度必須在 3 至 20 個字元之間！');
+      return res.redirect('/register');
+    }
     if (numAge < 18 || numAge > 100) {
       req.flash('error', '註冊失敗：年齡必須在 18 至 100 歲之間！');
       return res.redirect('/register');

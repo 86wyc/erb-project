@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理員後台 - 用戶清單</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+
+    /* 響應式表格外層容器 */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      /* 當螢幕太小時，表格可以左右滾動，不破壞排版 */
+      margin-top: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #fff;
+      border-radius: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 600px;
+      /* 確保在手機上不會擠壓得太嚴重 */
+    }
+
+    th,
+    td {
+      border: 1px solid #ddd;
+      padding: 12px 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    tr:nth-child(even) {
+      background-color: #fdfdfd;
+    }
+
+    /* 編輯模式下的 Input 與 Select 樣式 */
+    .edit-input {
+      display: none;
+      /* 預設隱藏 */
+      width: 90%;
+      padding: 4px 8px;
+      box-sizing: border-box;
+    }
+
+    /* 按鈕基礎樣式 */
+    .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 5px;
+      font-size: 14px;
+    }
+
+    .btn-edit {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .btn-save {
+      background-color: #28a745;
+      color: white;
+      display: none;
+    }
+
+    .btn-cancel {
+      background-color: #6c757d;
+      color: white;
+      display: none;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>🛡️ 系統管理員 - 所有用戶清單</h2>
+  <a href="/userInfo">返回我的個人資料</a>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>用戶名</th>
+          <th>Email</th>
+          <th>權限角色</th>
+          <th>聯絡電話</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(u) { %>
+          <tr id="row-<%= u._id %>" data-id="<%= u._id %>">
+
+            <td><code><%= u._id %></code></td>
+
+            <td>
+              <span class="view-text">
+                <%= u.username %>
+              </span>
+              <input type="text" class="edit-input val-username" value="<%= u.username %>">
+            </td>
+
+            <td>
+              <span class="view-text">
+                <%= u.email %>
+              </span>
+              <input type="email" class="edit-input val-email" value="<%= u.email %>">
+            </td>
+
+            <td>
+              <span class="view-text">
+                <%= u.role %>
+              </span>
+              <select class="edit-input val-role">
+                <option value="user" <%=u.role==='user' ? 'selected' : '' %>>user</option>
+                <option value="admin" <%=u.role==='admin' ? 'selected' : '' %>>admin</option>
+              </select>
+            </td>
+
+            <td>
+              <span class="view-text">
+                <%= u.phone %>
+              </span>
+              <input type="text" class="edit-input val-phone" value="<%= u.phone %>">
+            </td>
+
+            <td>
+              <button class="btn btn-edit" onclick="startEdit('<%= u._id %>')">編輯</button>
+              <button class="btn btn-save" onclick="saveEdit('<%= u._id %>')">儲存</button>
+              <button class="btn btn-cancel" onclick="cancelEdit('<%= u._id %>')">取消</button>
+            </td>
+          </tr>
+          <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    // 進入編輯模式
+    function startEdit(id) {
+      const row = document.getElementById(`row-${id}`);
+
+      // 顯示所有輸入框，隱藏所有純文字
+      row.querySelectorAll('.view-text').forEach(el => el.style.display = 'none');
+      row.querySelectorAll('.edit-input').forEach(el => el.style.display = 'inline-block');
+
+      // 切換按鈕顯示
+      row.querySelector('.btn-edit').style.display = 'none';
+      row.querySelector('.btn-save').style.display = 'inline-block';
+      row.querySelector('.btn-cancel').style.display = 'inline-block';
+    }
+
+    // 取消編輯（還原原本的資料）
+    function cancelEdit(id) {
+      const row = document.getElementById(`row-${id}`);
+
+      // 隱藏輸入框，顯示純文字
+      row.querySelectorAll('.view-text').forEach(el => el.style.display = 'inline');
+      row.querySelectorAll('.edit-input').forEach(el => el.style.display = 'none');
+
+      // 把 input 的值還原成原本 text 的內容，防止使用者改到一半取消後，下次點開留著髒資料
+      row.querySelector('.val-username').value = row.querySelector('.val-username').previousElementSibling.innerText;
+      row.querySelector('.val-email').value = row.querySelector('.val-email').previousElementSibling.innerText;
+      row.querySelector('.val-role').value = row.querySelector('.val-role').previousElementSibling.innerText;
+      row.querySelector('.val-phone').value = row.querySelector('.val-phone').previousElementSibling.innerText;
+
+      // 切換按鈕顯示
+      row.querySelector('.btn-edit').style.display = 'inline-block';
+      row.querySelector('.btn-save').style.display = 'none';
+      row.querySelector('.btn-cancel').style.display = 'none';
+    }
+
+    // 儲存編輯（發送 fetch API 到後端）
+    async function saveEdit(id) {
+      const row = document.getElementById(`row-${id}`);
+
+      // 抓取修改後的值
+      const updatedData = {
+        id: id,
+        username: row.querySelector('.val-username').value,
+        email: row.querySelector('.val-email').value,
+        role: row.querySelector('.val-role').value,
+        phone: row.querySelector('.val-phone').value
+      };
+
+      try {
+        // 發送 POST/PUT 請求給後端路由器更新資料
+        const response = await fetch('/admin/update-user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedData)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          // 更新前端畫面的純文字顯示
+          row.querySelector('.val-username').previousElementSibling.innerText = updatedData.username;
+          row.querySelector('.val-email').previousElementSibling.innerText = updatedData.email;
+          row.querySelector('.val-role').previousElementSibling.innerText = updatedData.role;
+          row.querySelector('.val-phone').previousElementSibling.innerText = updatedData.phone;
+
+          alert('資料更新成功！');
+          cancelEdit(id); // 呼叫取消函數來切換回一般檢視模式
+        } else {
+          alert('更新失敗：' + result.message);
+        }
+      } catch (err) {
+        console.error(err);
+        alert('網路或伺服器錯誤，請稍後再試。');
+      }
+    }
+
+    // 專治各家瀏覽器「按上一頁」看到舊資料的神仙程式碼
+    window.addEventListener('pageshow', function (event) {
+      const perfEntries = window.performance && window.performance.getEntriesByType ? window.performance.getEntriesByType('navigation') : [];
+      const isBackForward = perfEntries.length > 0 && perfEntries[0].type === 'back_forward';
+      if (isBackForward || event.persisted) {
+        window.location.reload();
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -36,7 +36,7 @@ var indexRouter = require('./routes/index');
 
 app.use('/', indexRouter);
 app.use('/userInfo', require('./routes/userInfo'));
-app.use('/usersList', require('./routes/usersList'));
+app.use('/admin', require('./routes/admin'));
 app.use('/consult', require('./routes/consult'));
 app.use('/register', require('./routes/register'));
 app.use('/changePassword', require('./routes/changePassword'));

@@ -7,11 +7,11 @@ function checkAuth(req, res, next) {
   res.setHeader('Pragma', 'no-cache');
   res.setHeader('Expires', '0');
   const token = req.cookies.token;
-  
+
   if (!token) {
     // return res.status(401).send("請先登入！");
     res.status(401);
-req.flash('error', '請先登入帳號！');
+    req.flash('error', '請先登入帳號！');
     return res.redirect("/login");
   }
 
@@ -21,7 +21,8 @@ req.flash('error', '請先登入帳號！');
     next();             // 順利過關，放行！
   } catch (err) {
     res.clearCookie('token');
-    return res.status(403).send("登入憑證失效，請重新登入");
+    req.flash('error', '登入憑證失效，請重新登入');
+    return res.redirect("/login");
   }
 }
 
@@ -31,7 +32,10 @@ function isAdmin(req, res, next) {
   if (req.user && req.user.role === 'admin') {
     next(); // 是 admin，放行！
   } else {
-    res.status(403).send("權限不足！只有管理員可以查看此頁面。");
+    // res.status(403).send("權限不足！只有管理員可以查看此頁面。");
+    res.status(403);
+    req.flash('error', '權限不足！只有管理員可以查看該頁面。');
+    return res.redirect("/");
   }
 }
 
