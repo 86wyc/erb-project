@@ -255,11 +255,11 @@
             const result = await response.json();
 
             if (result.success) {
-              alert('個人資料更新成功！');
+              alert('成功：' + result.message);
               // 重新整理頁面，載入更新後的最新資料
               window.location.reload();
             } else {
-              alert('更新失敗：' + result.message);
+              alert('失敗：' + result.message);
             }
           } catch (err) {
             console.error(err);

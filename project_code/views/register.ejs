@@ -9,7 +9,8 @@
 <body>
   <a href="/">回到主頁</a>
   <h2>帳號註冊</h2>
-  <form action="/register" method="POST">
+
+  <form id="registerForm">
     <div>
       <label>用戶名:</label>
       <input type="text" name="username" required>
@@ -60,14 +61,69 @@
     </div>
 
     <br>
-    <% if (locals.errorMessage) { %>
-      <div class="error-msg"
-        style="color: red; background-color: #f8d7da; border: 1px solid #f5c6cb; padding: 10px; border-radius: 4px; margin-bottom: 15px; width: 280px;">
-        ⚠️ <%= errorMessage %>
-      </div>
-      <% } %>
-        <button type="submit">註冊</button>
+
+    <div id="messageBox" style="display: none; padding: 10px; border-radius: 4px; margin-bottom: 15px; width: 280px;">
+    </div>
+
+    <button type="submit">註冊</button>
   </form>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async function (e) {
+      e.preventDefault(); // 🛑 核心：阻止表單預設的重新整理行為
+
+      const msgBox = document.getElementById('messageBox');
+      msgBox.style.display = 'none'; // 每次送出前先隱藏提示框
+
+      // 自動將表單資料打包成物件
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        // 發送非同步 FETCH 請求
+        const response = await fetch('/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data) // 轉為 JSON 字串
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // 註冊成功
+          msgBox.style.styleUrl = ''; // 清除舊樣式
+          msgBox.style.color = 'green';
+          msgBox.style.backgroundColor = '#d4edda';
+          msgBox.style.border = '1px solid #c3e6cb';
+          msgBox.innerText = '🎉 ' + result.message;
+          msgBox.style.display = 'block';
+
+          // 延遲 1.5 秒後跳轉到登入頁，讓使用者看得到成功訊息
+          setTimeout(() => {
+            window.location.href = '/login';
+          }, 1500);
+
+        } else {
+          // 後端驗證失敗 (例如：用戶名已存在、密碼不夠強...)
+          msgBox.style.color = 'red';
+          msgBox.style.backgroundColor = '#f8d7da';
+          msgBox.style.border = '1px solid #f5c6cb';
+          msgBox.innerText = '⚠️ ' + (result.message || '註冊失敗');
+          msgBox.style.display = 'block';
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+        msgBox.style.color = 'red';
+        msgBox.style.backgroundColor = '#f8d7da';
+        msgBox.style.border = '1px solid #f5c6cb';
+        msgBox.innerText = '⚠️ 網路或伺服器連線失敗，請稍後再試。';
+        msgBox.style.display = 'block';
+      }
+    });
+  </script>
 </body>
 
 </html>
