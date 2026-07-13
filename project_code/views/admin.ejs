@@ -219,10 +219,10 @@
           row.querySelector('.val-role').previousElementSibling.innerText = updatedData.role;
           row.querySelector('.val-phone').previousElementSibling.innerText = updatedData.phone;
 
-          alert('資料更新成功！');
+          alert('成功：' + result.message);
           cancelEdit(id); // 呼叫取消函數來切換回一般檢視模式
         } else {
-          alert('更新失敗：' + result.message);
+          alert('失敗：' + result.message);
         }
       } catch (err) {
         console.error(err);
