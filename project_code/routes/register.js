@@ -18,10 +18,10 @@ router.post('/', async function (req, res, next) {
     const usersCollection = database.collection("users");
 
     console.log("前端傳來的資料：", req.body);
-    const { username, email, password, confirmPassword, age, gender, height, weight, phone } = req.body;
+    const { username, email, password, confirmPassword, age, gender, height, weight, phone, realname } = req.body;
 
     // 基本欄位檢查
-    if (!username || !email || !password || !confirmPassword || !age || !gender || !height || !weight || !phone) {
+    if (!username || !email || !password || !confirmPassword || !age || !gender || !height || !weight || !phone || !realname) {
       return res.status(400).json({ success: false, message: '註冊失敗：所有欄位皆為必填！' });
     }
 
@@ -46,8 +46,8 @@ router.post('/', async function (req, res, next) {
     const numAge = Number(age);
     const numHeight = Number(height);
     const numWeight = Number(weight);
-    if (username.length < 3 || username.length > 20) { // 修正你原本寫 10 但訊息寫 20 的邏輯
-      return res.status(400).json({ success: false, message: '註冊失敗：用戶名長度必須在 3 至 20 個字元之間！' });
+    if (username.length < 3 || username.length > 15) {
+      return res.status(400).json({ success: false, message: '註冊失敗：用戶名長度必須在 3 至 15 個字元之間！' });
     }
     if (numAge < 18 || numAge > 100) {
       return res.status(400).json({ success: false, message: '註冊失敗：年齡必須在 18 至 100 歲之間！' });
@@ -63,6 +63,10 @@ router.post('/', async function (req, res, next) {
     const hkPhoneRegex = /^[2356789]\d{7}$/;
     if (!hkPhoneRegex.test(phone)) {
       return res.status(400).json({ success: false, message: '註冊失敗：請輸入合法的 8 位數香港電話號碼！' });
+    }
+
+    if (realname.length < 2 || realname.length > 4) {
+      return res.status(400).json({ success: false, message: '註冊失敗：真實姓名不能少於 2 個字 及 超過 4 個字' });
     }
 
     // 1. 檢查 username 或 email 是否已被註冊
@@ -97,7 +101,8 @@ router.post('/', async function (req, res, next) {
       height: numHeight,
       weight: numWeight,
       phone: phone,
-      createdAt: new Date()
+      createdAt: new Date(),
+      realname: realname
     };
 
     // 4. 寫入資料庫

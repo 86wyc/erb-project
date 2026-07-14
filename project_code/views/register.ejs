@@ -13,7 +13,7 @@
   <form id="registerForm">
     <div>
       <label>用戶名:</label>
-      <input type="text" name="username" required>
+      <input type="text" name="username" minlength="3" maxlength="15" required>
     </div>
     <div>
       <label>Email:</label>
@@ -60,6 +60,10 @@
       <small style="color: #666;">(香港 8 位數字電話)</small>
     </div>
 
+    <div>
+      <label>真實姓名:</label>
+      <input type="text" name="realname" minlength="2" maxlength="4" required>
+    </div>
     <br>
 
     <div id="messageBox" style="display: none; padding: 10px; border-radius: 4px; margin-bottom: 15px; width: 280px;">
