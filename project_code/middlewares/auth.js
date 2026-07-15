@@ -1,7 +1,7 @@
+require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = "t51515615611565656";
+const JWT_SECRET = process.env.JWT_SECRET || "t51515615611565656";
 
-// 1. 第一層關卡：檢查有沒有登入 (驗證 Token)
 function checkAuth(req, res, next) {
   res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, private');
   res.setHeader('Pragma', 'no-cache');
@@ -9,7 +9,6 @@ function checkAuth(req, res, next) {
   const token = req.cookies.token;
 
   if (!token) {
-    // return res.status(401).send("請先登入！");
     res.status(401);
     req.flash('error', '請先登入帳號！');
     return res.redirect("/login");
@@ -17,8 +16,8 @@ function checkAuth(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = decoded; // 把解密後的用戶資料（id, username, role）掛在 req 上，傳給下一個 function
-    next();             // 順利過關，放行！
+    req.user = decoded;
+    next();
   } catch (err) {
     res.clearCookie('token');
     req.flash('error', '登入憑證失效，請重新登入');
@@ -26,20 +25,16 @@ function checkAuth(req, res, next) {
   }
 }
 
-// 2. 第二層關卡：檢查是否為管理員 (選用，之後會很方便)
 function isAdmin(req, res, next) {
-  // 這個中間件必須接在 checkAuth 後面，因為要有 req.user 才能判斷
   if (req.user && req.user.role === 'admin') {
-    next(); // 是 admin，放行！
+    next();
   } else {
-    // res.status(403).send("權限不足！只有管理員可以查看此頁面。");
     res.status(403);
     req.flash('error', '權限不足！只有管理員可以查看該頁面。');
     return res.redirect("/");
   }
 }
 
-// 將這兩個工具匯出
 module.exports = {
   checkAuth,
   isAdmin
