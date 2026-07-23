@@ -1,0 +1,58 @@
+@startuml
+node "Client (User)" {
+  artifact "Browser" as Browser
+}
+
+node "Web Server (Node.js)" {
+  artifact "Express Application" as App
+  artifact "Authentication Middleware" as Auth
+  artifact "Rate Limiter" as Rate
+  artifact "Validator" as Validator
+  artifact "Controllers" as Controllers
+  artifact "Static Files (EJS/CSS)" as Static
+}
+
+node "Database Server" {
+  artifact "MongoDB" as Mongo {
+    artifact "users Collection" as Users
+    artifact "history Collection" as History
+    artifact "sessions Collection" as Sessions
+  }
+}
+
+node "External Services (Cloud)" {
+  artifact "Gemini/Qwen AI API" as AI
+  artifact "AI API Key" as AIKey
+}
+
+Browser --> App : HTTPS (HTTP/2)
+App --> Auth : Authorize
+Auth --> Rate : Limit Check
+Rate --> Validator : Validate Input
+Validator --> Controllers : Process Request
+Controllers --> Mongo : CRUD Operations
+Controllers --> AI : API Call (AI Diagnosis)
+
+Mongo --> Users : Read/Write
+Mongo --> History : Read/Write
+Mongo --> Sessions : Read/Write
+
+AI --> AIKey : Authenticate
+AI --> App : Returns Diagnosis
+
+note right of AI
+  External AI Service:
+  - Google Gemini API
+  - Alibaba Qwen API
+  - Requires API Key
+  - Returns JSON response
+end note
+
+note left of Mongo
+  Local/Cloud Database:
+  - MongoDB 6.x+
+  - Mongoose ODM
+  - Data Validation
+end note
+
+@enduml
