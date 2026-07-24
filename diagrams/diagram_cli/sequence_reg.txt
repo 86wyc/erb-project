@@ -1,0 +1,23 @@
+@startuml
+actor User
+participant "Browser" as B
+participant "Register Page" as R
+participant "Node.js Server" as S
+participant "MongoDB" as DB
+
+User -> B : Navigate to /register
+B -> R : Load Register Page
+R -> User : Display Registration Form
+User -> R : Fill in Form Data
+User -> R : Click Register
+R -> S : POST /register
+S -> S : Validate Input
+S -> DB : Check if user exists
+DB --> S : User not found
+S -> DB : CREATE new user
+DB --> S : User Created
+S --> R : 201 Created + Message
+R --> User : Show Success Message
+R -> B : Redirect to /login
+
+@enduml

@@ -1,0 +1,46 @@
+@startuml
+start
+:User visits /register;
+:Fill Registration Form;
+:Click Register;
+
+if (All Fields Filled?) then (No)
+  :Show Error Message;
+  stop
+else (Yes)
+  :Validate Input;
+  if (Valid?) then (No)
+    :Show Validation Error;
+    stop
+  else (Yes)
+    :Check Password Match;
+    if (Passwords Match?) then (No)
+      :Show Password Mismatch Error;
+      stop
+    else (Yes)
+      :Check Password Strength;
+      if (Password Strong?) then (No)
+        :Show Password Strength Error;
+        stop
+      else (Yes)
+        :Check if User Exists;
+        if (User Exists?) then (Yes)
+          :Show User Exists Error;
+          stop
+        else (No)
+          :Hash Password (bcrypt);
+          :CREATE User in MongoDB;
+          if (Success?) then (Yes)
+            :Show Success Message;
+            :Redirect to /login;
+          else (No)
+            :Show Server Error;
+          endif
+          stop
+        endif
+      endif
+    endif
+  endif
+endif
+
+@enduml

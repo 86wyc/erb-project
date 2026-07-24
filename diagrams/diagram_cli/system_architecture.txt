@@ -1,0 +1,36 @@
+@startuml
+package "Frontend (Presentation Layer)" {
+  [EJS Templates]
+  [CSS Stylesheets]
+  [Client-side JavaScript]
+}
+
+package "Backend (Application Layer)" {
+  [Express Router]
+  [Authentication Middleware]
+  [Rate Limiter Middleware]
+  [Validation Middleware]
+  [Business Logic Controllers]
+}
+
+package "Data Layer" {
+  database "MongoDB" as DB {
+    [users Collection]
+    [history Collection]
+    [sessions Collection]
+  }
+}
+
+package "External Services" {
+  [Gemini/Qwen AI API]
+}
+
+[EJS Templates] --> [Express Router]
+[Express Router] --> [Authentication Middleware]
+[Authentication Middleware] --> [Rate Limiter Middleware]
+[Rate Limiter Middleware] --> [Validation Middleware]
+[Validation Middleware] --> [Business Logic Controllers]
+[Business Logic Controllers] --> DB
+[Business Logic Controllers] --> [Gemini/Qwen AI API]
+
+@enduml

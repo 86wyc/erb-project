@@ -1,0 +1,34 @@
+@startuml
+left to right direction
+actor "User" as U
+actor "Admin" as A
+
+rectangle "Xinglin Yuan TCM System" {
+  usecase "Register Account" as UC1
+  usecase "Login" as UC2
+  usecase "View Profile" as UC3
+  usecase "Update Profile" as UC4
+  usecase "Change Password" as UC5
+  usecase "TCM Consultation" as UC6
+  usecase "View History" as UC7
+  usecase "Logout" as UC8
+  usecase "Manage Users" as UC9
+  usecase "Delete Users" as UC10
+}
+
+U --> UC1
+U --> UC2
+U --> UC3
+U --> UC4
+U --> UC5
+U --> UC6
+U --> UC7
+U --> UC8
+
+A --> UC9
+A --> UC10
+A --> UC3
+A --> UC5
+A --> UC7
+
+@enduml

@@ -1,0 +1,35 @@
+@startuml
+actor User
+participant "Browser" as B
+participant "Node.js Server" as S
+participant "MongoDB" as DB
+
+== CREATE ==
+User -> B : Register Account
+B -> S : POST /register
+S -> DB : CREATE user
+DB --> S : User Created
+S --> B : Success
+
+== READ ==
+User -> B : View Profile
+B -> S : GET /userInfo (with JWT)
+S -> DB : READ user
+DB --> S : User Data
+S --> B : Profile Displayed
+
+== UPDATE ==
+User -> B : Change Password
+B -> S : POST /changePassword (with JWT)
+S -> DB : UPDATE user
+DB --> S : Updated
+S --> B : Success
+
+== DELETE ==
+User -> B : Delete Account (Admin)
+B -> S : DELETE /admin/user/:id (with JWT)
+S -> DB : DELETE user
+DB --> S : Deleted
+S --> B : Success
+
+@enduml

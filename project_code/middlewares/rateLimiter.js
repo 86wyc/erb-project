@@ -1,26 +1,20 @@
 const rateLimit = require('express-rate-limit');
 
-// Login rate limiter - 5 attempts per 15 minutes
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 attempts
-  message: {
-    success: false,
-    message: '嘗試次數過多，請15分鐘後再試'
-  },
-  standardHeaders: true,
-  legacyHeaders: false,
+  windowMs: 15 * 60 * 1000,
+  max: 5,
   handler: (req, res) => {
     req.flash('error', '嘗試次數過多，請15分鐘後再試');
     return res.status(429).render('login', {
       errorMessage: '嘗試次數過多，請15分鐘後再試'
     });
-  }
+  },
+  standardHeaders: true,
+  legacyHeaders: false
 });
 
-// API rate limiter - 30 requests per minute
 const apiLimiter = rateLimit({
-  windowMs: 60 * 1000, // 1 minute
+  windowMs: 60 * 1000,
   max: 30,
   message: {
     success: false,

@@ -1,0 +1,24 @@
+@startuml
+actor User
+participant "Browser" as B
+participant "Login Page" as L
+participant "Node.js Server" as S
+participant "MongoDB" as DB
+
+User -> B : Navigate to /login
+B -> L : Load Login Page
+L -> User : Display Login Form
+User -> L : Enter Credentials
+User -> L : Click Login
+L -> S : POST /login
+S -> S : Rate Limit Check
+S -> S : Validate Input
+S -> DB : Find User
+DB --> S : User Found
+S -> S : Compare Password (bcrypt)
+S -> S : Generate JWT
+S -> L : Set Cookie + Redirect
+L -> B : Redirect to /userInfo
+B -> User : Display Profile Page
+
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+
+class User {
+  - ObjectId _id
+  - String username
+  - String email
+  - String password
+  - String role
+  - Number age
+  - String gender
+  - Number height
+  - Number weight
+  - String phone
+  - String realname
+  - Date createdAt
+  + comparePassword()
+  + generateToken()
+}
+
+class History {
+  - ObjectId _id
+  - ObjectId userId
+  - String[] symptoms
+  - String diagnosis
+  - String recipeName
+  - String[] ingredients
+  - String instructions
+  - String imageUrl
+  - Date createdAt
+  + restoreDetails()
+  + deleteRecord()
+}
+
+class Session {
+  - String token
+  - ObjectId userId
+  - String device
+  - Date lastActive
+  - Boolean isLoggedIn
+  + validate()
+  + invalidate()
+}
+
+User "1" -- "0..*" History : has
+User "1" -- "0..*" Session : has
+
+@enduml
