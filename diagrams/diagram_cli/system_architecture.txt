@@ -1,36 +1,78 @@
 @startuml
-package "Frontend (Presentation Layer)" {
-  [EJS Templates]
-  [CSS Stylesheets]
-  [Client-side JavaScript]
+left to right direction
+
+' --- Clean Modern Styling ---
+skinparam backgroundcolor transparent
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 12
+skinparam nodesep 12
+skinparam ranksep 15
+
+skinparam package {
+    BackgroundColor #F8F9FA
+    BorderColor #DEE2E6
+    FontColor #212529
+    FontStyle bold
 }
 
-package "Backend (Application Layer)" {
-  [Express Router]
-  [Authentication Middleware]
-  [Rate Limiter Middleware]
-  [Validation Middleware]
-  [Business Logic Controllers]
+skinparam rectangle {
+    BackgroundColor #E9ECEF
+    BorderColor #CED4DA
+    FontColor #495057
 }
 
-package "Data Layer" {
+skinparam database {
+    BackgroundColor #E8F0FE
+    BorderColor #AECBFA
+    FontColor #1A73E8
+}
+
+skinparam component {
+    BackgroundColor #FFFFFF
+    BorderColor #CED4DA
+}
+
+' --- Architecture Elements ---
+package "Frontend" {
+  [EJS]
+  [CSS] -[hidden]down-> [EJS]
+  [EJS] -[hidden]down-> [JS]
+}
+
+package "Backend Middleware" {
+  rectangle "Router" as Router
+  rectangle "Auth" as Auth
+  rectangle "Validator" as Valid
+  rectangle "Controllers" as Ctrl
+}
+
+package "External" {
+  [Qwen AI] as AI
+}
+
+package "Data" {
   database "MongoDB" as DB {
-    [users Collection]
-    [history Collection]
-    [sessions Collection]
+    [users]
+    [sessions] -[hidden]down-> [users]
+    [users] -[hidden]down-> [history]
   }
 }
 
-package "External Services" {
-  [Gemini/Qwen AI API]
-}
+' --- Ultra-Compact Grid Connections ---
+EJS -> Router
 
-[EJS Templates] --> [Express Router]
-[Express Router] --> [Authentication Middleware]
-[Authentication Middleware] --> [Rate Limiter Middleware]
-[Rate Limiter Middleware] --> [Validation Middleware]
-[Validation Middleware] --> [Business Logic Controllers]
-[Business Logic Controllers] --> DB
-[Business Logic Controllers] --> [Gemini/Qwen AI API]
+' Creates a tight 2x2 grid for the backend
+Router -> Auth
+Auth --> Valid
+Valid -> Ctrl
+
+' Output destinations
+Ctrl -> DB
+Ctrl -> AI
+
+' Structural alignment constraints to shrink horizontal space
+Router -[hidden]down-> Valid
+Auth -[hidden]down-> Ctrl
 
 @enduml
