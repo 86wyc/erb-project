@@ -1,0 +1,39 @@
+@startuml
+start
+:User visits /login;
+:Enter Credentials;
+:Click Login;
+
+if (Input Valid?) then (No)
+  :Show Error Message;
+  stop
+else (Yes)
+  :Check Rate Limit;
+  if (Rate Limit Exceeded?) then (Yes)
+    :Show Rate Limit Error (429);
+    stop
+  else (No)
+    :Find User in Database;
+    if (User Exists?) then (No)
+      :Show Generic Error (401);
+      stop
+    else (Yes)
+      :Compare Password (bcrypt);
+      if (Password Correct?) then (No)
+        :Show Generic Error (401);
+        stop
+      else (Yes)
+        :Generate JWT Token;
+        :Set Secure Cookie;
+        if (User is Admin?) then (Yes)
+          :Redirect to /admin;
+        else (No)
+          :Redirect to /userInfo;
+        endif
+        stop
+      endif
+    endif
+  endif
+endif
+
+@enduml

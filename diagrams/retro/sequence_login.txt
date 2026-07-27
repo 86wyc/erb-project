@@ -11,6 +11,7 @@ L -> User : Display Login Form
 User -> L : Enter Credentials
 User -> L : Click Login
 L -> S : POST /login
+S -> S : Rate Limit Check
 S -> S : Validate Input
 S -> DB : Find User
 DB --> S : User Found

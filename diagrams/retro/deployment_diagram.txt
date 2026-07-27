@@ -6,6 +6,7 @@ node "Client (User)" {
 node "Web Server (Node.js)" {
   artifact "Express Application" as App
   artifact "Authentication Middleware" as Auth
+  artifact "Rate Limiter" as Rate
   artifact "Validator" as Validator
   artifact "Controllers" as Controllers
   artifact "Static Files (EJS/CSS)" as Static
@@ -26,7 +27,8 @@ node "External Services (Cloud)" {
 
 Browser --> App : HTTPS (HTTP/2)
 App --> Auth : Authorize
-Auth --> Validator : Validate Input
+Auth --> Rate : Limit Check
+Rate --> Validator : Validate Input
 Validator --> Controllers : Process Request
 Controllers --> Mongo : CRUD Operations
 Controllers --> AI : API Call (AI Diagnosis)
